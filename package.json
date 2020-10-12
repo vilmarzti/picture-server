@@ -20,6 +20,7 @@
     "@angular/platform-browser": "~10.1.5",
     "@angular/platform-browser-dynamic": "~10.1.5",
     "@angular/router": "~10.1.5",
+    "@types/url-join": "^4.0.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -27,6 +28,7 @@
     "mongoose-sequence": "^5.2.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "url-join": "^4.0.1",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

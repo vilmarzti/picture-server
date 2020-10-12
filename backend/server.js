@@ -5,16 +5,18 @@ const bodyParser    = require('body-parser')
 const pictureSchema = require('./schema')
 const mongoOptions  = require('./mongoose_options')
 
-const hostname = '127.0.0.1'
 const port = process.env.port || 8000
-
-db_path = 'mongodb://127.0.0.1:27017/picture-server'
+const db_path = 'mongodb://127.0.0.1:27017/picture-server'
 
 const app = express()
-//    .use(cors)
+app.use(cors());
 
+// Load Model for manipulating db
 const Picture = mongoose.model('Picture', pictureSchema)
 
+// ********************
+// Server configuration
+// ********************
 
 // Get all Pictures
 app.get('/pictureAll', (req, res) =>{
@@ -35,7 +37,7 @@ app.get('/pictureAll', (req, res) =>{
 
 
 // Get Picture with specific id
-app.get('/picture/:id', (req, res) => {
+app.get('/picture/:id', cors(), (req, res) => {
     const id = req.params.id
     console.log('Accessed picture with id: ' + id)
 
@@ -61,6 +63,8 @@ app.get('/picture/:id', (req, res) => {
 
 })
 
+
+// connect to Mongoose and start server
 mongoose.connect(db_path, mongoOptions).then( () =>{
     app.listen(
         port,

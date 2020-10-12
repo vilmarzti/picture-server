@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { VoteComponent } from './vote/vote.component';
 import { HttpClientModule } from '@angular/common/http';
+import { VoteAllComponent } from './vote-all/vote-all.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    VoteComponent
+    VoteComponent,
+    VoteAllComponent
   ],
   imports: [
     BrowserModule,
