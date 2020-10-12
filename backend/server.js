@@ -15,9 +15,29 @@ const app = express()
 
 const Picture = mongoose.model('Picture', pictureSchema)
 
-app.get('/vote/:id', (req, res) => {
+
+// Get all Pictures
+app.get('/pictureAll', (req, res) =>{
+    Picture.find({}, (err, pers) =>{
+        if(err){
+            res.status(404).send('Error while loading all Pictures')
+        }else{
+            let persons = pers.map((p) => {
+                console.log("Found picture: " + JSON.stringify(p.toJSON()))
+                return p.toJSON()
+            });
+
+            res.send(persons)
+        }
+
+    });
+});
+
+
+// Get Picture with specific id
+app.get('/picture/:id', (req, res) => {
     const id = req.params.id
-    console.log('Accessed vot for id: ' + id);
+    console.log('Accessed vot for id: ' + id)
 
     //  check whether the id is a Number
     if(!isNaN(id)){
@@ -26,7 +46,7 @@ app.get('/vote/:id', (req, res) => {
         Picture.findOne({'id': id}, (err, per) =>{
             // check for errors
             if(err){
-                res.status(404).send('not found');
+                res.status(404).send('not found')
             }
             // if no error - send json object
             else{
