@@ -37,7 +37,7 @@ app.get('/pictureAll', (req, res) =>{
 // Get Picture with specific id
 app.get('/picture/:id', (req, res) => {
     const id = req.params.id
-    console.log('Accessed vot for id: ' + id)
+    console.log('Accessed picture with id: ' + id)
 
     //  check whether the id is a Number
     if(!isNaN(id)){
@@ -50,7 +50,7 @@ app.get('/picture/:id', (req, res) => {
             }
             // if no error - send json object
             else{
-                console.log("Found Person: " + JSON.stringify(per.toJSON()))
+                console.log("Found Picture: " + JSON.stringify(per.toJSON()))
                 res.send(per.toJSON())
             }
         })

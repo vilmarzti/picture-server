@@ -16,8 +16,12 @@ export class VoteComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params =>{
+    this.route.params.subscribe(params =>{
       console.log(params['id']);
+      this.http.get<Picture>('http://localhost:8000/picture/' + params['id'])
+        .subscribe((data: Picture) => {
+          console.log(data);
+      })
     })
   }
 
