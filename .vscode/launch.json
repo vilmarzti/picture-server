@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/src/server.js",
+            "program": "${workspaceFolder}/backend/server.js",
             "args": [
                 "./data/gesten/"
             ]
@@ -23,7 +23,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/src/fill_data.js",
+            "program": "${workspaceFolder}/backend/fill_data.js",
             "args": [
                 "./data/gesten/"
             ]
