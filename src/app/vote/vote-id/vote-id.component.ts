@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Picture } from '../interfaces/picture';
+import { Picture } from '../../shared/picture';
 import { ActivatedRoute } from '@angular/router';
-import { PictureService } from '../service/picture.service';
+import { PictureService } from '../../shared/picture.service';
 
 @Component({
-  selector: 'app-vote',
-  templateUrl: './vote.component.html',
-  styleUrls: ['./vote.component.scss']
+  selector: 'app-vote-id',
+  templateUrl: './vote-id.component.html',
+  styleUrls: ['./vote-id.component.scss']
 })
-export class VoteComponent implements OnInit {
+export class VoteIdComponent implements OnInit {
 
   constructor(
-    private http: HttpClient,
     private route: ActivatedRoute,
     private pictureService: PictureService
   ) { }

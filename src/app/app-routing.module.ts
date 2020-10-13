@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { VoteAllComponent } from './vote-all/vote-all.component';
-import { VoteComponent } from './vote/vote.component';
+import { VoteAllComponent } from './vote/vote-all/vote-all.component';
+import { VoteIdComponent } from './vote/vote-id/vote-id.component';
 
 const routes: Routes = [
   {
     path: 'vote/:id',
-    component: VoteComponent
+    component: VoteIdComponent
   },
   {
     path: 'vote',

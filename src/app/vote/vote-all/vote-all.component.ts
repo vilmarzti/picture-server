@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Picture } from '../interfaces/picture';
-import { PictureService } from '../service/picture.service';
+import { Picture } from '../../shared/picture';
+import { PictureService } from '../../shared/picture.service';
 
 @Component({
   selector: 'app-vote-all',
