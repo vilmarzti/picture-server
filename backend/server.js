@@ -9,7 +9,10 @@ const port = process.env.port || 8000
 const db_path = 'mongodb://127.0.0.1:27017/picture-server'
 
 const app = express()
-app.use(cors())
+
+console.log('cors enabled')
+app.use(cors());
+
 const Picture = mongoose.model('Picture', pictureSchema)
 
 // ********************
