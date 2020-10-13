@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { VoteComponent } from './vote/vote.component';
 import { HttpClientModule } from '@angular/common/http';
 import { VoteAllComponent } from './vote-all/vote-all.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { VoteAllComponent } from './vote-all/vote-all.component';
     VoteAllComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule

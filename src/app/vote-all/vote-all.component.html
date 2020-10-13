@@ -1,7 +1,10 @@
 <div class="body">
     <div class="list">
-        <div class="element" *ngFor="let p of pictures">
-            {{p.path}}
-        </div>
+        <a [routerLink]="['/vote', p.id]" class="element" *ngFor="let p of pictures">
+            <img [src]="p.path" height="300">
+            <div class="vote" *ngFor="let t of p.titles">
+                {{t.title}}: {{t.votes}}
+            </div>
+        </a>
     </div>
 </div>

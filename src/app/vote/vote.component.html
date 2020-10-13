@@ -1,1 +1,5 @@
-<p>vote works!</p>
+<img [src]="picture.path" height="300">
+<form (submit)="vote()">
+    <input [(ngModel)]="title" type="text" class="title" name="title">
+    <input type="submit">
+</form>

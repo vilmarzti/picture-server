@@ -17,7 +17,8 @@ export class VoteComponent implements OnInit {
     private pictureService: PictureService
   ) { }
 
-  private picture: Picture;
+  public title: string;
+  public picture: Picture;
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -30,6 +31,18 @@ export class VoteComponent implements OnInit {
         }
       )
     });
+  }
+
+  public vote(){
+    console.log(this.title);
+    this.pictureService.updateVote(this.picture.id, this.title).subscribe(
+      (data: any) => {
+        console.log(data);
+      },
+      (err: any) => {
+        console.log(err)
+      }
+    )
   }
 
 }

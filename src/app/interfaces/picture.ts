@@ -1,10 +1,10 @@
 export interface Picture {
-    id: Number,
-    _id: String,
-    __v: Number
-    path: String,
+    id: number,
+    _id: string,
+    __v: number
+    path: string,
     titles: [{
-        title: String,
-        vote: Number
+        title: string,
+        vote: number
     }]
 }

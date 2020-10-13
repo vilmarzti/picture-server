@@ -10,8 +10,8 @@ const db_path = 'mongodb://127.0.0.1:27017/picture-server'
 
 const app = express()
 
-console.log('cors enabled')
-app.use(cors());
+app.use(cors())
+app.use(bodyParser.json())
 
 const Picture = mongoose.model('Picture', pictureSchema)
 
@@ -20,7 +20,7 @@ const Picture = mongoose.model('Picture', pictureSchema)
 // ********************
 
 // Get all Pictures
-app.get('/pictureAll', (req, res) =>{
+app.get('/pictureAll', cors(), (req, res) =>{
     Picture.find({}, (err, pers) =>{
         if(err){
             res.status(404).send('Error while loading all Pictures')
@@ -38,7 +38,7 @@ app.get('/pictureAll', (req, res) =>{
 
 
 // Get Picture with specific id
-app.get('/picture/:id', cors(), (req, res) => {
+app.get('/picture/:id', (req, res) => {
     const id = req.params.id
     console.log('Accessed picture with id: ' + id)
 
@@ -62,6 +62,28 @@ app.get('/picture/:id', cors(), (req, res) => {
         res.status(404).send('not found')
     }
 
+})
+
+app.put('/picture/:id', (req, res) =>{
+    if(req.body.id && req.body.title){
+        Picture.findOne({id: req.body.id}).then(
+            doc =>{
+             let title = doc.titles.find(t => t.title === req.body.title)
+             if(title && title.title && title.votes){
+                 title.votes += 1
+             }else{
+                 doc.titles.push({
+                    title: req.body.title,
+                    votes: 1
+                 })
+             }
+             doc.save();
+             console.log("saved document: " + doc.toString());
+            }
+        )
+
+    }
+    res.send('ok');
 })
 
 

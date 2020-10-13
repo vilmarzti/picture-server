@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { URL } from 'url';
@@ -10,8 +10,11 @@ const urljoin = require('url-join');
   providedIn: 'root'
 })
 export class PictureService{
-  private pictures: Picture[] = [];
-  private pictureSubject = new Subject<Picture>();
+  private httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+  }
 
   constructor(private http: HttpClient) { 
   }
@@ -24,8 +27,8 @@ export class PictureService{
     return this.http.get<Picture[]>(urljoin(httpParams.backend_server_url, 'pictureAll'))
   }
 
-  public updateVote(id: number, vote: string){
-
+  public updateVote(id: number, title: string){
+    return this.http.put(urljoin(httpParams.backend_server_url, '/picture/', id.toString()), {id: id.toString(), title: title}, this.httpOptions)
   }
 
 }
