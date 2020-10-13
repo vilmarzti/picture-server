@@ -15,6 +15,7 @@ export class VoteIdComponent implements OnInit {
     private pictureService: PictureService
   ) { }
 
+  public id;
   public title: string;
   public picture: Picture;
 

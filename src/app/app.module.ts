@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { VoteModule } from './vote/vote.module';
+import { ArchiveModule } from './archive/archive.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { VoteModule } from './vote/vote.module';
     FormsModule,
     BrowserModule,
     AppRoutingModule,
-    VoteModule
+    VoteModule,
+    ArchiveModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,1 +1,7 @@
-<p>next-button works!</p>
+<div *ngIf="next_id!=pos_inf;else goToBye">
+    <a [routerLink]="['/vote', next_id]">Next</a>
+</div>
+
+<ng-template #goToBye>
+    <a routerLink="/vote/bye">Bye</a>
+</ng-template>

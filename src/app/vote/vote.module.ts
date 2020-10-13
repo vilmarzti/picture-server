@@ -18,10 +18,10 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     BrowserModule,
     FormsModule,
-    RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ]
 })
 export class VoteModule { }
