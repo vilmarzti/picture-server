@@ -25,12 +25,10 @@ export class VoteIdComponent implements OnInit {
       this.pictureService.getPicture(+params['id']).subscribe(
         (data: Picture) =>{
           this.picture = data;
-          if(!data){
-            this.router.navigate(['/vote', 'missing'])
-          }
         },
         (err) =>{
           console.log(err);
+          this.router.navigate(['/vote', 'missing'])
         }
       )
     });

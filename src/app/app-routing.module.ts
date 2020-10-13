@@ -30,7 +30,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'archive/',
+    path: 'archive',
     component: ViewAllComponent,
   },
   {

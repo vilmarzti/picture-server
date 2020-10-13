@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ViewAllComponent } from './view-all/view-all.component';
 import { RouterModule } from '@angular/router';
 import { ViewIdComponent } from './view-id/view-id.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -10,7 +11,8 @@ import { ViewIdComponent } from './view-id/view-id.component';
   declarations: [ViewAllComponent, ViewIdComponent],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ]
 })
 export class ArchiveModule { }
