@@ -5,6 +5,7 @@ import { ViewIdComponent } from './archive/view-id/view-id.component';
 import { VoteByeComponent } from './vote/vote-bye/vote-bye.component';
 import { VoteIdComponent } from './vote/vote-id/vote-id.component';
 import { VoteInfoComponent } from './vote/vote-info/vote-info.component';
+import { VoteMissingComponent } from './vote/vote-missing/vote-missing.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'vote/info',
     component: VoteInfoComponent
+  },
+  {
+    path: 'vote/missing',
+    component: VoteMissingComponent
   },
   {
     path: 'vote/:id',

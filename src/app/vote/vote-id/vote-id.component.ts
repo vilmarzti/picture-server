@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Picture } from '../../shared/picture';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PictureService } from '../../shared/picture.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class VoteIdComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private pictureService: PictureService
   ) { }
 
@@ -24,6 +25,9 @@ export class VoteIdComponent implements OnInit {
       this.pictureService.getPicture(+params['id']).subscribe(
         (data: Picture) =>{
           this.picture = data;
+          if(!data){
+            this.router.navigate(['/vote', 'missing'])
+          }
         },
         (err) =>{
           console.log(err);
