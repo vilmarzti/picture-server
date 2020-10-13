@@ -16,7 +16,7 @@ import { ArchiveModule } from './archive/archive.module';
     BrowserModule,
     AppRoutingModule,
     VoteModule,
-    ArchiveModule
+    ArchiveModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

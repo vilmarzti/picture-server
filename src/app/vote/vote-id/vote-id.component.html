@@ -3,5 +3,5 @@
     <input [(ngModel)]="title" type="text" class="title" name="title">
     <input type="submit">
 </form>
-<a [routerlink]="['vote', 'info']">Info</a>
+<a routerlink="vote/info" routerLinkActive="active">Info</a>
 <app-next-button></app-next-button>
