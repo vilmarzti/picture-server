@@ -1,2 +1,10 @@
 <p>vote-info works!</p>
-<app-next-button [base_url]="base_url"></app-next-button>
+<div *ngIf="continue_id !== -1;else startSurvey">
+    <a [routerLink]="[base_url, continue_id]">Continue</a>
+</div>
+
+<ng-template #startSurvey>
+    <div>
+        <a [routerLink]="[base_url, starting_id]">Start</a>
+    </div>
+</ng-template>

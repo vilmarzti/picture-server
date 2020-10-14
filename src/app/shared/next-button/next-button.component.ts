@@ -21,7 +21,7 @@ export class NextButtonComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.pictureService.prevId.subscribe(
+    this.pictureService.nextId.subscribe(
       id => this.next_id = id
     )
   }
