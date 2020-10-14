@@ -5,7 +5,15 @@
 export const environment = {
   production: false,
   backend_url: "http:localhost",
-  backend_port: 8000
+  backend_port: 8000,
+  model: {
+    seq2seq:{
+      port: 6000
+    },
+    baseline:{
+      port: 5000
+    }
+  }
 };
 
 /*

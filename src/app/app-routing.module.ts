@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ViewAllComponent } from './archive/view-all/view-all.component';
 import { ViewIdComponent } from './archive/view-id/view-id.component';
+import { DrawComponent } from './draw/draw/draw.component';
 import { HomeComponent } from './general/home/home.component';
 import { MissingIdComponent } from './general/missing-id/missing-id.component';
 import { VoteByeComponent } from './vote/vote-bye/vote-bye.component';
@@ -37,6 +38,14 @@ const routes: Routes = [
   {
     path: 'general/missing',
     component: MissingIdComponent
+  },
+  {
+    path: 'draw/:name',
+    component: DrawComponent
+  },
+  {
+    path: 'draw',
+    redirectTo: 'draw/baseline'
   },
   {
     path: '',

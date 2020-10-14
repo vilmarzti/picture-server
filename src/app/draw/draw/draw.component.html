@@ -1,0 +1,9 @@
+<div>
+    <canvas appCanvasDraw [clear]="clear" (newStrokeEvent)="newStroke($event)" id="canvas" width="600" height="300"
+        style="border:solid black 1px;">
+        Your browser does not support canvas element.
+    </canvas>
+</div>
+{{result}}
+<button (click)="submit()">Submit</button>
+<button (click)="clearCanvas()">Clear</button>

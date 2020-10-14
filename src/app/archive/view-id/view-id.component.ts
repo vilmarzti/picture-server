@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Picture } from 'src/app/shared/picture';
 import { PictureService } from 'src/app/shared/picture.service';
@@ -8,11 +8,10 @@ import { PictureService } from 'src/app/shared/picture.service';
   templateUrl: './view-id.component.html',
   styleUrls: ['./view-id.component.scss']
 })
-export class ViewIdComponent implements OnInit {
+export class ViewIdComponent implements OnInit, OnDestroy {
   public first_url = "/archive";
   public base_url = "/archive";
   public picture: Picture;
-  public checkBoxFlag = false;
   private _id: number = NaN;
   private _interval;
 
@@ -25,7 +24,7 @@ export class ViewIdComponent implements OnInit {
   ngOnInit(): void {
     // enable live update
     this._interval = setInterval(() => {
-      if(this.checkBoxFlag && !isNaN(this._id)){
+      if(!isNaN(this._id) && this.picture){
         this.pictureService.getPicture(this._id).subscribe(
           picture => {
             this.picture.titles = picture.titles;
@@ -52,5 +51,11 @@ export class ViewIdComponent implements OnInit {
         this.router.navigate(['/general', 'missing'])
       });
     });
+  }
+
+  ngOnDestroy(){
+    if(this._interval){
+      clearInterval(this._interval);
+    }
   }
 }
