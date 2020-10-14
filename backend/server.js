@@ -71,8 +71,8 @@ app.get('/picture/:id', (req, res) => {
 app.put('/picture/:id', (req, res) =>{
     const id = req.params.id
     console.log('Accessing picture with id: ' + id);
-    if(req.body.id && req.body.title){
-        Picture.findOne({id: req.body.id}).then(
+    if(req.body.title){
+        Picture.findOne({id: id}).then(
             doc =>{
                 console.log('Updating Picture')
                 let title = doc.titles.find(t => t.title === req.body.title)
@@ -90,7 +90,7 @@ app.put('/picture/:id', (req, res) =>{
         )
 
     }else{
-        console.log('misformed json: include title and id');
+        console.log('misformed json: include title');
     }
     res.send('ok');
 })

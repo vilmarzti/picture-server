@@ -72,6 +72,6 @@ export class PictureService{
   }
 
   public updateVote(id: number, title: string){
-    return this.http.put(new URL('picture/' + id, this._backendURL).toString(), {id: id.toString(), ttitle: title}, this.httpOptions);
+    return this.http.put(new URL('picture/' + id, this._backendURL).toString(), {title: title}, this.httpOptions);
   }
 }
