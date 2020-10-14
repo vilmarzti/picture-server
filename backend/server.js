@@ -85,14 +85,15 @@ app.put('/picture/:id', (req, res) =>{
                     })
                 }
                 doc.save();
-                console.log("Saved Picture: " + doc.toString());
+                console.log("Saved Picture: " + doc.toString())
+                res.status(200).send(doc.toJSON());
             }
         )
 
     }else{
         console.log('misformed json: include title');
+        res.status(404).send('misformed json');
     }
-    res.send('ok');
 })
 
 
