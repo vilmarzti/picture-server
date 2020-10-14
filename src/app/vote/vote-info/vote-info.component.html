@@ -1,5 +1,5 @@
 <p>vote-info works!</p>
-<div *ngIf="continue_id !== -1;else startSurvey">
+<div *ngIf="continue_id!=-1; else startSurvey">
     <a [routerLink]="[base_url, continue_id]">Continue</a>
 </div>
 

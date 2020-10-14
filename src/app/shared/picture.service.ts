@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Picture } from '../shared/picture';
-import { httpParams } from './general';
-const urljoin = require('url-join');
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +14,17 @@ export class PictureService{
       })
   }
 
-  constructor(private http: HttpClient) { 
-  }
-
   private _nextIdSubject: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
   private _prevIdSubject: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
+  private _backendURL = new URL(environment.backend_url)
+
+  constructor(private http: HttpClient) { 
+    this._backendURL.port = environment.backend_port.toString()
+  }
 
   private _currentId: number = -1;
   get currentId(): number{
-    return this.currentId;
+    return this._currentId;
   }
   set currentId(val: number){
     this._currentId = val;
@@ -60,14 +61,17 @@ export class PictureService{
   }
 
   public getPicture(id: number): Observable<Picture>{
-    return this.http.get<Picture>(urljoin(httpParams.backend_server_url, '/picture/', id.toString()));
+    //return this.http.get<Picture>(urljoin(this._backendURL.toString(), '/picture/', id.toString()));
+    //return this.http.get<Picture>((new URL('picture/' + id.toString(), this._backendURL).toString())
+    return this.http.get<Picture>(new URL('picture/' + id, this._backendURL).toString())
+
   }
 
   public getAllPictures(): Observable<Picture[]>{
-    return this.http.get<Picture[]>(urljoin(httpParams.backend_server_url, 'pictureAll'))
+    return this.http.get<Picture[]>(new URL('pictureAll', this._backendURL).toString())
   }
 
   public updateVote(id: number, title: string){
-    return this.http.put(urljoin(httpParams.backend_server_url, '/picture/', id.toString()), {id: id.toString(), title: title}, this.httpOptions)
+    return this.http.put(new URL('picutre/' + id, this._backendURL).toString(), {id: id.toString(), ttitle: title}, this.httpOptions);
   }
 }
