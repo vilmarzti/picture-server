@@ -14,6 +14,8 @@ export class DrawComponent implements OnInit{
   @ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement>;
   private model = 'baseline';
   private history: History;
+  
+  public model_list = [];
   public result = '';
   public clear = 0;
  
@@ -48,8 +50,12 @@ export class DrawComponent implements OnInit{
       word_ascii: '',
       word_stroke: []
     }
+
+    // setup list of possible models
+    this.model_list = Object.keys(environment.model)
  }
 
+  // is called whenever a new stroke is emitted
   public newStroke(stroke: Stroke){
     this.history.word_stroke.push(stroke)
   }
@@ -62,6 +68,7 @@ export class DrawComponent implements OnInit{
     else{
       model_url.port = environment.model.seq2seq.port.toString();
     }
+    console.log(this.history);
     this.http.post(model_url.toString(), this.history, this.httpOptions).subscribe(
       data =>{
         this.result = data['result'];

@@ -4,7 +4,7 @@ export const environment = {
   backend_port: 8000,
   model: {
     seq2seq:{
-      port: 6000
+      port: 5001
     },
     baseline: {
       port: 5000
