@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ViewAllComponent } from './archive/view-all/view-all.component';
 import { ViewIdComponent } from './archive/view-id/view-id.component';
+import { HomeComponent } from './general/home/home.component';
+import { MissingIdComponent } from './general/missing-id/missing-id.component';
 import { VoteByeComponent } from './vote/vote-bye/vote-bye.component';
 import { VoteIdComponent } from './vote/vote-id/vote-id.component';
 import { VoteInfoComponent } from './vote/vote-info/vote-info.component';
-import { VoteMissingComponent } from './vote/vote-missing/vote-missing.component';
 
 const routes: Routes = [
   {
@@ -15,10 +16,6 @@ const routes: Routes = [
   {
     path: 'vote/info',
     component: VoteInfoComponent
-  },
-  {
-    path: 'vote/missing',
-    component: VoteMissingComponent
   },
   {
     path: 'vote/:id',
@@ -36,6 +33,18 @@ const routes: Routes = [
   {
     path: 'archive/:id',
     component: ViewIdComponent,
+  },
+  {
+    path: 'general/missing',
+    component: MissingIdComponent
+  },
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: '*',
+    redirectTo: ''
   }
 ];
 

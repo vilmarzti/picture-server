@@ -1,0 +1,9 @@
+<div *ngIf="!isNan(prev_id); else GoToFirst">
+    <a [routerLink]="[base_url, prev_id]">Previous</a>
+</div>
+
+<ng-template #GoToFirst>
+    <div *ngIf="first_url">
+        <a [routerLink]="first_url">Archive</a>
+    </div>
+</ng-template>

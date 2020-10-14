@@ -8,9 +8,12 @@ import { PictureService } from '../picture.service';
   styleUrls: ['./next-button.component.scss']
 })
 export class NextButtonComponent implements OnInit {
+  @Input() base_url = "";
+  @Input() last_url = "";
+
   public id: number = 0;
   public next_id: number = 0;
-  public pos_inf = Number.POSITIVE_INFINITY;
+  public isNaN: Function = Number.isNaN;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,7 +31,7 @@ export class NextButtonComponent implements OnInit {
           let index = pictures.findIndex(
             pic => pic.id === +this.id
           )
-          if (index === pictures.length - 1) this.next_id = Number.POSITIVE_INFINITY
+          if (index === pictures.length - 1) this.next_id = NaN
           else this.next_id = pictures[index += 1].id
         },
         err => {

@@ -1,7 +1,9 @@
-<div *ngIf="next_id!=pos_inf;else goToBye">
-    <a [routerLink]="['/vote', next_id]">Next</a>
+<div *ngIf="!isNaN(next_id);else goToLast">
+    <a [routerLink]="[base_url, next_id]">Next</a>
 </div>
 
-<ng-template #goToBye>
-    <a routerLink="/vote/bye">Bye</a>
+<ng-template #goToLast>
+    <div *ngIf="last_url">
+        <a [routerLink]="last_url">Bye</a>
+    </div>
 </ng-template>

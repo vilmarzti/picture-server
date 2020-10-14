@@ -3,6 +3,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { VoteModule } from './vote/vote.module';
 import { ArchiveModule } from './archive/archive.module';
+import { GeneralModule } from './general/general.module';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { ArchiveModule } from './archive/archive.module';
   imports: [
     AppRoutingModule,
     VoteModule,
-    ArchiveModule
+    ArchiveModule,
+    GeneralModule
   ],
   providers: [],
   bootstrap: [AppComponent]

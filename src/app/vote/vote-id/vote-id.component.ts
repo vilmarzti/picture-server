@@ -19,6 +19,7 @@ export class VoteIdComponent implements OnInit {
   public id;
   public title: string;
   public picture: Picture;
+  public base_url = "/vote"
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -28,7 +29,7 @@ export class VoteIdComponent implements OnInit {
         },
         (err) =>{
           console.log(err);
-          this.router.navigate(['/vote', 'missing'])
+          this.router.navigate(['/general', 'missing'])
         }
       )
     });

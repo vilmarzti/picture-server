@@ -9,7 +9,10 @@ import { PictureService } from 'src/app/shared/picture.service';
   styleUrls: ['./view-id.component.scss']
 })
 export class ViewIdComponent implements OnInit {
+  public first_url = "/archive";
+  public base_url = "/archive";
   public picture: Picture;
+
   constructor(
     private pictureService: PictureService,
     private route: ActivatedRoute

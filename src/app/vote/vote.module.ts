@@ -8,12 +8,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { VoteInfoComponent } from './vote-info/vote-info.component';
 import { VoteByeComponent } from './vote-bye/vote-bye.component';
 import { SharedModule } from '../shared/shared.module';
-import { VoteMissingComponent } from './vote-missing/vote-missing.component';
 
 
 
 @NgModule({
-  declarations: [VoteIdComponent, VoteInfoComponent, VoteByeComponent, VoteMissingComponent],
+  declarations: [
+    VoteIdComponent,
+    VoteInfoComponent,
+    VoteByeComponent
+  ],
   imports: [
     CommonModule,
     BrowserModule,

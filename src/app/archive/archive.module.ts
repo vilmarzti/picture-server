@@ -4,6 +4,7 @@ import { ViewAllComponent } from './view-all/view-all.component';
 import { RouterModule } from '@angular/router';
 import { ViewIdComponent } from './view-id/view-id.component';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -12,7 +13,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    SharedModule,
   ]
 })
 export class ArchiveModule { }
