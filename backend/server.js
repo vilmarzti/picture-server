@@ -69,23 +69,28 @@ app.get('/picture/:id', (req, res) => {
 })
 
 app.put('/picture/:id', (req, res) =>{
+    const id = req.params.id
+    console.log('Accessing picture with id: ' + id);
     if(req.body.id && req.body.title){
         Picture.findOne({id: req.body.id}).then(
             doc =>{
-             let title = doc.titles.find(t => t.title === req.body.title)
-             if(title && title.title && title.votes){
-                 title.votes += 1
-             }else{
-                 doc.titles.push({
+                console.log('Updating Picture')
+                let title = doc.titles.find(t => t.title === req.body.title)
+                if(title && title.title && title.votes){
+                    title.votes += 1
+                }else{
+                    doc.titles.push({
                     title: req.body.title,
                     votes: 1
-                 })
-             }
-             doc.save();
-             console.log("saved document: " + doc.toString());
+                    })
+                }
+                doc.save();
+                console.log("Saved Picture: " + doc.toString());
             }
         )
 
+    }else{
+        console.log('misformed json: include title and id');
     }
     res.send('ok');
 })
