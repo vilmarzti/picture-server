@@ -12,6 +12,9 @@ export class ViewIdComponent implements OnInit {
   public first_url = "/archive";
   public base_url = "/archive";
   public picture: Picture;
+  public checkBoxFlag = false;
+  private _id: number = NaN;
+  private _interval;
 
   constructor(
     private pictureService: PictureService,
@@ -20,12 +23,29 @@ export class ViewIdComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // enable live update
+    this._interval = setInterval(() => {
+      if(this.checkBoxFlag && !isNaN(this._id)){
+        this.pictureService.getPicture(this._id).subscribe(
+          picture => {
+            this.picture.titles = picture.titles;
+          },
+          error => {
+            console.log('Error while reloading titles');
+          }
+        )
+      }
+     },
+     5000
+    );
+
+    // get id from route paramater and load the corresponding picture
     this.route.params.subscribe(params => {
-      this.pictureService.currentId = +params['id']
-      this.pictureService.getPicture(+params['id']).subscribe(
+      this._id = +params['id']
+      this.pictureService.currentId = this._id
+      this.pictureService.getPicture(this._id).subscribe(
       picture =>{
         this.picture = picture;
-        console.log(this.picture.titles);
       },
       error =>{
         console.log(error);

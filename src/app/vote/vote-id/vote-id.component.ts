@@ -20,9 +20,12 @@ export class VoteIdComponent implements OnInit {
   public title: string;
   public picture: Picture;
   public base_url = "/vote"
+  public checkBoxFlag = false;
   private _nextId = 0;
+  private _interval
 
   ngOnInit(): void {
+
     // get the next Id
     this.pictureService.nextId.subscribe(
       id => {

@@ -4,6 +4,11 @@
         {{title.title}}: {{title.votes}}
     </div>
 </div>
+<br>
+<br>
+<form>
+    <input [(ngModel)]="checkBoxFlag" [ngModelOptions]="{standalone: true}" type="checkbox"> Enable live updates
+</form>
 <app-next-button [base_url]="base_url"></app-next-button>
 <app-prev-button [base_url]="base_url"></app-prev-button>
 <div>
