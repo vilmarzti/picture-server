@@ -30,6 +30,7 @@ export class VoteIdComponent implements OnInit {
         },
         (err) =>{
           console.log(err);
+          this.pictureService.currentId = -1;
           this.router.navigate(['/general', 'missing'])
         }
       )
