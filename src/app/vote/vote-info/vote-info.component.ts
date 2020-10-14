@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PictureService } from 'src/app/shared/picture.service';
 
 @Component({
   selector: 'app-vote-info',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VoteInfoComponent implements OnInit {
   public base_url ="/vote"
-  constructor() { }
+  public continue_id: number = 0;
+  constructor(
+    private pictureService: PictureService
+  ) { }
 
   ngOnInit(): void {
+    this.continue_id = this.pictureService.currentId;
   }
 
 }

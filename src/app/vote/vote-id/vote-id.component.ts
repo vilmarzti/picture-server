@@ -23,6 +23,7 @@ export class VoteIdComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
+      this.pictureService.currentId = +params['id'];
       this.pictureService.getPicture(+params['id']).subscribe(
         (data: Picture) =>{
           this.picture = data;

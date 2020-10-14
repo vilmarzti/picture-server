@@ -21,23 +21,8 @@ export class NextButtonComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // get current param
-    this.route.params.subscribe(params => {
-      this.id = params['id'];
-
-      // get next param
-      this.pictureService.getAllPictures().subscribe(
-        pictures => {
-          let index = pictures.findIndex(
-            pic => pic.id === +this.id
-          )
-          if (index === pictures.length - 1) this.next_id = NaN
-          else this.next_id = pictures[index += 1].id
-        },
-        err => {
-          console.log(err);
-        }
-      );
-    });
+    this.pictureService.prevId.subscribe(
+      id => this.next_id = id
+    )
   }
 }

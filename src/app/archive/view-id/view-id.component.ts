@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Picture } from 'src/app/shared/picture';
 import { PictureService } from 'src/app/shared/picture.service';
 
@@ -15,12 +15,13 @@ export class ViewIdComponent implements OnInit {
 
   constructor(
     private pictureService: PictureService,
-    private route: ActivatedRoute
-    
+    private route: ActivatedRoute,
+    private router: Router 
   ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
+      this.pictureService.currentId = +params['id']
       this.pictureService.getPicture(+params['id']).subscribe(
       picture =>{
         this.picture = picture;
@@ -28,6 +29,7 @@ export class ViewIdComponent implements OnInit {
       },
       error =>{
         console.log(error);
+        this.router.navigate(['/general', 'missing'])
       });
     });
   }

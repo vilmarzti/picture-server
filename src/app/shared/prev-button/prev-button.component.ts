@@ -17,29 +17,12 @@ export class PrevButtonComponent implements OnInit {
   public isNan: Function = Number.isNaN;
 
   constructor(
-    private route: ActivatedRoute,
     private pictureService: PictureService
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(
-      params => {
-        this.id = +params['id']
-
-        this.pictureService.getAllPictures().subscribe(
-          pictures => {
-            let index = pictures.findIndex(
-              pic => pic.id ===this.id
-            );
-            if (index <= 0) this.prev_id = NaN
-            else this.prev_id = pictures[index -1].id
-          },
-          err =>{
-            console.log(err)
-          }
-        )
-      }
+    this.pictureService.prevId.subscribe(
+      id => this.prev_id = id
     )
   }
-
 }
