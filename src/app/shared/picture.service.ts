@@ -22,7 +22,7 @@ export class PictureService{
     this._backendURL.port = environment.backend_port.toString()
   }
 
-  private _currentId: number = -1;
+  private _currentId: number = NaN;
   get currentId(): number{
     return this._currentId;
   }

@@ -10,13 +10,16 @@ export class VoteInfoComponent implements OnInit {
   public base_url ="/vote"
   public continue_id: number = 0;
   public starting_id: number = 0;
+  public isNaN: Function = isNaN;
+
   constructor(
     private pictureService: PictureService
   ) { }
 
   ngOnInit(): void {
+    // get saved id
     this.continue_id = this.pictureService.currentId;
-    console.log(this.continue_id);
+    // get starting id
     this.pictureService.getAllPictures().subscribe(
       pictures =>{
         if(pictures.length > 0){

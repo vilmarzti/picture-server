@@ -23,20 +23,28 @@ export class VoteIdComponent implements OnInit {
   private _nextId = 0;
 
   ngOnInit(): void {
+    // get the next Id
     this.pictureService.nextId.subscribe(
       id =>{
         this._nextId = id;
       }
     );
+
     this.route.params.subscribe(params => {
+      // reset title
+      this.title = "";
+      // set current id
       this.pictureService.currentId = +params['id'];
+      // get the appropriate picture from the server
       this.pictureService.getPicture(+params['id']).subscribe(
         (data: Picture) =>{
+          // save picture if found
           this.picture = data;
         },
         (err) =>{
+          // redirect if picture is missing
           console.log(err);
-          this.pictureService.currentId = -1;
+          this.pictureService.currentId = NaN;
           this.router.navigate(['/general', 'missing'])
         }
       )
