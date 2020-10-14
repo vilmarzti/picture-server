@@ -25,7 +25,7 @@ export class VoteIdComponent implements OnInit {
   ngOnInit(): void {
     // get the next Id
     this.pictureService.nextId.subscribe(
-      id =>{
+      id => {
         this._nextId = id;
       }
     );
@@ -37,13 +37,12 @@ export class VoteIdComponent implements OnInit {
       this.pictureService.currentId = +params['id'];
       // get the appropriate picture from the server
       this.pictureService.getPicture(+params['id']).subscribe(
-        (data: Picture) =>{
+        (data: Picture) => {
           // save picture if found
           this.picture = data;
         },
-        (err) =>{
+        (err) => {
           // redirect if picture is missing
-          console.log(err);
           this.pictureService.currentId = NaN;
           this.router.navigate(['/general', 'missing'])
         }
@@ -51,21 +50,22 @@ export class VoteIdComponent implements OnInit {
     });
   }
 
-  public vote(){
-    console.log(this.title);
-    this.pictureService.updateVote(this.picture.id, this.title).subscribe(
-      (data: any) => {
-        if (isNaN(this._nextId)){
-          this.router.navigate(['/vote', 'bye']);
+  public vote() {
+    if (this.title) {
+      this.pictureService.updateVote(this.picture.id, this.title).subscribe(
+        (data: any) => {
+          if (isNaN(this._nextId)) {
+            this.router.navigate(['/vote', 'bye']);
+          }
+          else {
+            this.router.navigate(['/vote', this._nextId]);
+          }
+        },
+        (err: any) => {
+          console.log(err)
         }
-        else{
-          this.router.navigate(['/vote', this._nextId]);
-        }
-      },
-      (err: any) => {
-        console.log(err)
-      }
-    )
+      );
+    }
   }
 
 }
