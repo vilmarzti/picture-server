@@ -49,12 +49,12 @@ app.get('/picture/:id', (req, res) => {
         Picture.findOne({'id': id}, (err, per) =>{
             // check for errors
             if(err){
-                res.status(404).send('Pciture not found')
+                res.status(404).send('Picture not found')
             }
             // if no error - send json object
             else{
                 if(!per){
-                    res.status(404).send('Pciture not found')
+                    res.status(404).send('Picture not found')
                 }else{
                     console.log("Found Picture: " + JSON.stringify(per.toJSON()))
                     res.send(per.toJSON())
