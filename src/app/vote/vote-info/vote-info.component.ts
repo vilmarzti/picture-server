@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vote-info.component.scss']
 })
 export class VoteInfoComponent implements OnInit {
-
+  public base_url ="/vote"
   constructor() { }
 
   ngOnInit(): void {
