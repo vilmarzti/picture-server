@@ -1,19 +1,12 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+import { common } from './environment.common'
 
 export const environment = {
   production: false,
   backend_url: "http:localhost",
-  backend_port: 8000,
-  model: {
-    seq2seq:{
-      port: 5001
-    },
-    baseline:{
-      port: 5000
-    }
-  }
+  ...common
 };
 
 /*
