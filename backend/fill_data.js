@@ -21,7 +21,7 @@ if(process.argv.length == 3){
         let files = fs.readdirSync(svg_path);
 
         for(let file of files){
-            if(file.slice(-3) === 'svg'){
+            if(file.slice(-3) === 'png'){
                 console.log("found path: " + file);
                 const p = new Picture();
                 p.path = path.join(svg_path, file);
