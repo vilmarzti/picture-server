@@ -5,7 +5,7 @@ import { AppTouchEvent } from './app-touch-event';
 @Directive({
   selector: '[appCanvasDraw]'
 })
-export class CanvasDrawDirective  implements AfterViewInit, OnChanges{
+export class CanvasDrawDirective implements AfterViewInit, OnChanges {
   @Output() newStrokeEvent = new EventEmitter<Stroke>();
   @Input() clear: number;
 
@@ -22,12 +22,12 @@ export class CanvasDrawDirective  implements AfterViewInit, OnChanges{
     this._el = el;
   }
 
-  ngAfterViewInit(): void{
+  ngAfterViewInit(): void {
     this.offset = [this._el.nativeElement.offsetLeft, this._el.nativeElement.offsetTop]
   }
 
-  ngOnChanges(changes: SimpleChanges){
-    if(changes.clear){
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.clear) {
       this.ctx.clearRect(0, 0, this._el.nativeElement.width, this._el.nativeElement.height);
     }
   }
@@ -38,14 +38,14 @@ export class CanvasDrawDirective  implements AfterViewInit, OnChanges{
     this.touchStart(touchEvent);
   }
 
-  @HostListener('mousemove', ['$event']) mouseMove(event: MouseEvent){
-    if(this.ismousedown && this.touchStartPos){
+  @HostListener('mousemove', ['$event']) mouseMove(event: MouseEvent) {
+    if (this.ismousedown && this.touchStartPos) {
       let touchEvent = this.mouseToTouch(event);
       this.touchMove(touchEvent);
     }
   }
 
-  @HostListener('mouseup', ['$event']) mouseUp(event: MouseEvent){
+  @HostListener('mouseup', ['$event']) mouseUp(event: MouseEvent) {
     this.ismousedown = false;
     let touchEvent = this.mouseToTouch(event);
     this.touchEnd(touchEvent);
@@ -68,7 +68,7 @@ export class CanvasDrawDirective  implements AfterViewInit, OnChanges{
   }
 
 
-  @HostListener('touchmove', ['$event']) touchMove(event: TouchEvent | AppTouchEvent){
+  @HostListener('touchmove', ['$event']) touchMove(event: TouchEvent | AppTouchEvent) {
     let x = event.touches[0].clientX - this.offset[0];
     let y = event.touches[0].clientY - this.offset[1];
 
@@ -94,10 +94,15 @@ export class CanvasDrawDirective  implements AfterViewInit, OnChanges{
     this.newStrokeEvent.emit(stroke)
   }
 
-  @HostListener('touchend', ['$event']) touchEnd(event: TouchEvent | AppTouchEvent){
-    let x = event.touches[0].clientX - this.offset[0];
-    let y = event.touches[0].clientY - this.offset[1];
-
+  @HostListener('touchend', ['$event']) touchEnd(event: TouchEvent | AppTouchEvent) {
+    let x, y: number;
+    if (window.TouchEvent && event instanceof TouchEvent) {
+      x = this.touchStartPos[0];
+      y = this.touchStartPos[1];
+    } else {
+      x = event.touches[0].clientX - this.offset[0];
+      y = event.touches[0].clientY - this.offset[1];
+    }
     // setup to draw liine
     this.ctx.beginPath();
     this.ctx.moveTo(this.touchStartPos[0], this.touchStartPos[1])
