@@ -1,10 +1,29 @@
-Generelle information zur umfrage
-<div *ngIf="!isNaN(continue_id); else startSurvey">
-    <a [routerLink]="[base_url, continue_id]">Continue</a>
-</div>
-
-<ng-template #startSurvey>
-    <div>
-        <a [routerLink]="[base_url, starting_id]">Start</a>
+<div class="container">
+    <div class="title">
+        Vielen Dank, nimmst du an meinem Bachelorprojekt teil!
     </div>
-</ng-template>
+
+    <div class="text">
+        Es folgen fünfzig isolierte Zeichen aus handgeschriebenen Texten. Sie ergeben wenig Sinn ohne ihren
+        ursprünglichen
+        Kontext und sind deshalb interpretationsbedürftige Bilder.<br>
+        Gib ihnen neuen Sinn, indem du benennst, was du siehst. Vielleicht kannst du das Geschriebene entziffern?
+        Vielleicht
+        aber hast du freie Assoziationen, ähnlich wie bei einem Rorschacher Test. Fühle dich frei in deiner
+        Interpretation.<br>
+        Im Textfeld unter dem jeweiligen Bild teilst du in eigenen Worten, was du siehst und gelangst mit «senden» zur
+        nächsten Geste. Falls du keine Idee hast, dann kannst du das Bild auch mit «skip» überspringen.
+        Drücke «start» und es kann losgehen!
+    </div>
+
+
+    <div *ngIf="!isNaN(continue_id); else startSurvey">
+        <a [routerLink]="[base_url, continue_id]">Continue</a>
+    </div>
+
+    <ng-template #startSurvey>
+        <div>
+            <a [routerLink]="[base_url, starting_id]">Start</a>
+        </div>
+    </ng-template>
+</div>
