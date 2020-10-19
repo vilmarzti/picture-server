@@ -14,6 +14,7 @@ export class ViewAllComponent implements OnInit {
   public pictures: Picture[] = []
 
   ngOnInit(): void {
+    this.pictureService.random = false;
     this.pictureService.getAllPictures().subscribe(
       (data: Picture[]) =>{
         this.pictures = data;
