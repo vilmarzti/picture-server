@@ -29,7 +29,8 @@ export class PictureService {
   constructor(private http: HttpClient) {
     this._backendURL.port = environment.backend_port.toString()
     let date = new Date();
-    this._seed = date.getTime.toString();
+    this._seed = date.getTime().toString();
+    console.log(this._seed)
     this.getAllPictures().subscribe(
       pictures => {
         this._numberOfObjects.next(pictures.length);

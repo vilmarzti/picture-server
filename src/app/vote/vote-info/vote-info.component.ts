@@ -17,6 +17,9 @@ export class VoteInfoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // use randomized start
+    this.pictureService.random = true;
+
     // get saved id
     this.continue_id = this.pictureService.currentId;
     // get starting id
