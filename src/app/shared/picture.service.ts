@@ -14,15 +14,17 @@ export class PictureService{
       })
   }
 
+  public random = false;
   private _nextIdSubject: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
   private _prevIdSubject: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
   private _backendURL = new URL(environment.backend_url)
+  private _currentId: number = NaN;
+  private _randomIndices: number[];
 
   constructor(private http: HttpClient) { 
     this._backendURL.port = environment.backend_port.toString()
   }
 
-  private _currentId: number = NaN;
   get currentId(): number{
     return this._currentId;
   }

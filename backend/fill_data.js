@@ -13,18 +13,19 @@ console.log('mongoose connected')
 
 const Picture = mongoose.model('Picture', pictureSchema);
 
-const svg_models = []
-if(process.argv.length == 3){
-    let svg_path = process.argv[2];
+const picture_models = []
+if(process.argv.length == 4){
+    let picture_path = process.argv[2];
+    let save_path = process.argv[3]
 
     if(fs.realpathSync(svg_path)){
-        let files = fs.readdirSync(svg_path);
+        let files = fs.readdirSync(picture_path);
 
         for(let file of files){
             if(file.slice(-3) === 'png'){
                 console.log("found path: " + file);
                 const p = new Picture();
-                p.path = path.join(svg_path, file);
+                p.path = path.join(save_path, file);
                 svg_models.push(p);
             }
         }
@@ -38,10 +39,10 @@ if(process.argv.length == 3){
     console.log('please supply a data path');
 }
 
-num_models = svg_models.length;
+num_models = picture_models.length;
 
 function saveAll(){
-    var model = svg_models.pop();
+    var model = picture_models.pop();
     model.save( (err, saved) =>{
         if(err && err.code === 11000){
             console.log("found duplicate: " + err.keyValue.path)
@@ -64,9 +65,3 @@ function saveAll(){
 }
 
 saveAll();
-
-
-
-
-//mongoose.connection.close()
-//console.log('mongoose closed')
