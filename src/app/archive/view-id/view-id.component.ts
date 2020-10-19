@@ -22,6 +22,8 @@ export class ViewIdComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.pictureService.random = false;
+
     // enable live update
     this._interval = setInterval(() => {
       if(!isNaN(this._id) && this.picture){

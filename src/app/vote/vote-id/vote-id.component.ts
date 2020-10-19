@@ -25,6 +25,7 @@ export class VoteIdComponent implements OnInit {
   private _interval
 
   ngOnInit(): void {
+    this.pictureService.random = true;
 
     // get the next Id
     this.pictureService.nextId.subscribe(
