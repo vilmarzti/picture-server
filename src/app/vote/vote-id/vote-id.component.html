@@ -1,9 +1,14 @@
-<img *ngIf="picture" [src]="picture.path" height="300">
-<form (submit)="vote()">
-    <input [(ngModel)]="title" type="text" class="title" name="title">
-    <input type="submit">
-</form>
-
-<a [routerLink]="['/vote', 'info']">Info</a>
-<app-next-button [base_url]="base_url" [last_url]="'/vote/bye'"></app-next-button>
-<app-position></app-position>
+<div class="container">
+    <div class="img_input">
+        <img *ngIf="picture" [src]="picture.path" height="300">
+        <form (submit)="vote()">
+            <input [(ngModel)]="title" type="text" class="title" name="title">
+            <input type="submit" value="senden">
+        </form>
+    </div>
+    <div class="text">
+        <a [routerLink]="['/vote', 'info']">Info</a>
+        <app-next-button [base_url]="base_url" [last_url]="'/vote/bye'"></app-next-button>
+        <app-position></app-position>
+    </div>
+</div>
