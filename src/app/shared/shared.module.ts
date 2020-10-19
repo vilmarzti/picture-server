@@ -4,11 +4,12 @@ import { NextButtonComponent } from './next-button/next-button.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { PrevButtonComponent } from './prev-button/prev-button.component';
+import { PositionComponent } from './position/position.component';
 
 
 
 @NgModule({
-  declarations: [NextButtonComponent, PrevButtonComponent],
+  declarations: [NextButtonComponent, PrevButtonComponent, PositionComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -16,7 +17,8 @@ import { PrevButtonComponent } from './prev-button/prev-button.component';
   ],
   exports: [
     NextButtonComponent,
-    PrevButtonComponent
+    PrevButtonComponent,
+    PositionComponent
   ]
 })
 export class SharedModule { }
