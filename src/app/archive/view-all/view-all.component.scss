@@ -1,0 +1,27 @@
+.text-container{
+    max-width: 720px;
+    margin: 30px auto 50px auto;
+}
+
+.list{
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.img-container{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+}
+
+img{
+    width: 120px;
+    display:block;
+    margin: auto;
+}
+
+img:hover{
+    cursor: pointer;
+}

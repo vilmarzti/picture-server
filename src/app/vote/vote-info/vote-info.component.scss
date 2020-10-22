@@ -1,15 +1,10 @@
+@import "../../../styles.scss";
+
 .container{
     max-width: 720px;
     margin: auto;
 
     .title{
         margin-top: 50px;
-        font-family: Lato;
-        font-size: 32px;
-    }
-
-    .text{
-        margin-top: 10px;
-        font-family: merriweather;
     }
 }

@@ -1,10 +1,24 @@
 <div class="body">
+    <div class="text-container">
+        <div class="title">
+            Lorem ipsum dolor sit amet
+        </div>
+        <div class="text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at ipsum hendrerit, venenatis ante sed,
+            maximus est. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean orci velit, malesuada nec
+            bibendum ut, egestas at dui. Aliquam maximus sed sapien id blandit. Morbi nec venenatis sapien. Nam et massa
+            metus. Integer scelerisque, mauris et dignissim hendrerit, nisi nibh hendrerit arcu, in congue libero justo
+            in neque. Fusce malesuada porta quam, vel ornare nibh auctor ac. Maecenas malesuada, sem in dapibus
+            imperdiet, dui elit pharetra nisl, vitae sodales erat tortor accumsan lectus. Praesent ultrices vehicula
+            nisl et sollicitudin. Curabitur feugiat elit id aliquet finibus. Aliquam a condimentum odio. Etiam pulvinar
+            euismod nulla, sit amet bibendum diam viverra a. Vivamus consectetur orci in nulla volutpat, vel sodales
+            risus blandit.
+        </div>
+    </div>
     <div class="list">
-        <a [routerLink]="['/archive', p.id]" class="element" *ngFor="let p of pictures">
-            <div class="path">
-                {{p.path}}
-            </div>
-            <img [src]="p.path" height="300">
-        </a>
+        <div class="img-container" *ngFor="let p of pictures">
+            <div class="overlay"></div>
+            <img [src]="p.path" [routerLink]="['/archive', p.id]">
+        </div>
     </div>
 </div>

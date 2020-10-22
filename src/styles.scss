@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+$title-font: Lato;
+$title-size: 32px;
+$text-font: merriweather;
+
+.title{
+    font-family: $title-font;
+    font-size: $title-size;
+    margin-bottom: 30px;
+}
+
+.text{
+    font-family: $text-font;
+    font-size: 16px;
+}
