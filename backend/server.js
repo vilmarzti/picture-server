@@ -23,13 +23,13 @@ const Picture = mongoose.model('Picture', pictureSchema)
 app.use(
     '/image',
     express.static(
-        path.join(__dirname, '../data/gesten')
+        path.join(__dirname, '../data')
     )
 )
 
 
 // Get all Pictures information
-app.get('/pictureAll', cors(), (req, res) =>{
+app.get('/infoAll', cors(), (req, res) =>{
     Picture.find({}, (err, pers) =>{
         if(err){
             res.status(404).send('Error while loading all Pictures')
@@ -46,7 +46,7 @@ app.get('/pictureAll', cors(), (req, res) =>{
 
 
 // Get Picture information with specific id
-app.get('/picture/:id', (req, res) => {
+app.get('/info/:id', (req, res) => {
     const id = req.params.id
     console.log('Accessed picture with id: ' + id)
 
@@ -77,7 +77,7 @@ app.get('/picture/:id', (req, res) => {
 })
 
 // update picture with a specific vote
-app.put('/picture/:id', (req, res) =>{
+app.put('/info/:id', (req, res) =>{
     const id = req.params.id
     console.log('Accessing picture with id: ' + id);
     if(req.body.title){

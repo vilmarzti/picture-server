@@ -1,5 +1,5 @@
 <div *ngIf="picture" class="body">
-    <img [src]="picture.path" width="300">
+    <img [src]="picture.url" width="300">
     <div *ngFor="let title of picture.titles">
         {{title.title}}: {{title.votes}}
     </div>

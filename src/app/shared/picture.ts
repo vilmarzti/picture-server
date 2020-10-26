@@ -3,6 +3,7 @@ export interface Picture {
     _id: string,
     __v: number
     path: string,
+    url: URL,
     titles: [{
         title: string,
         vote: number
