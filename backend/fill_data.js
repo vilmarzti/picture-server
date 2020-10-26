@@ -1,14 +1,11 @@
 const mongoose      = require('mongoose');
 const fs            = require('fs')
-const pw            = require('./password');
 const pictureSchema = require('./schema')
 const mongoOptions  = require('./mongoose_options')
 const path          = require('path');
 
 
-db_path = 'mongodb://127.0.0.1:27017/picture-server';
-
-mongoose.connect(db_path, mongoOptions);
+mongoose.connect(mongoOptions.db_path, mongoOptions.options);
 console.log('mongoose connected')
 
 const Picture = mongoose.model('Picture', pictureSchema);
