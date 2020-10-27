@@ -63,12 +63,18 @@ export class PictureService {
   }
 
   public getPicture(id: number): Observable<Picture>{
-    return this.http.get<Picture>(new URL('picture/' + id, this._backendURL).toString())
+    return this.http.get<Picture>(
+      new URL('info/' + id, this._backendURL).toString()
+      ).pipe(
+        tap(pic =>{
+          pic.url = new URL(pic.path, this._backendURL);
+        })
+      )
   }
 
   public getAllPictures(): Observable<Picture[]>{
     return this.http.get<Picture[]>(
-      new URL('pictureAll', 
+      new URL('infoAll', 
       this._backendURL).toString()
       ).pipe(
         // sort or shuffle pictures
@@ -79,12 +85,20 @@ export class PictureService {
             // sort by id
             else pictures.sort((pic1, pic2) => pic1.id - pic2.id)
           }
+        ),
+        // add fully qualified path
+        tap(
+          pictures => {
+            for(let pic of pictures){
+              pic.url = new URL(pic.path, this._backendURL)
+            }
+          }
         )
       )
   }
 
   public updateVote(id: number, title: string){
-    return this.http.put(new URL('picture/' + id, this._backendURL).toString(), {title: title}, this.httpOptions);
+    return this.http.put(new URL('info/' + id, this._backendURL).toString(), {title: title}, this.httpOptions);
   }
 
   private computeNextPrev(){

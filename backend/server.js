@@ -1,12 +1,12 @@
-const express       = require('express')
+const path          = require('path')
 const cors          = require('cors')
+const express       = require('express')
 const mongoose      = require('mongoose')
 const bodyParser    = require('body-parser')
-const pictureSchema = require('./schema')
 const mongoOptions  = require('./mongoose_options')
+const pictureSchema = require('./schema')
 
 const port = process.env.port || 8000
-const db_path = 'mongodb://127.0.0.1:27017/picture-server'
 
 const app = express()
 
@@ -19,8 +19,17 @@ const Picture = mongoose.model('Picture', pictureSchema)
 // Server configuration
 // ********************
 
-// Get all Pictures
-app.get('/pictureAll', cors(), (req, res) =>{
+// make the picture images public
+app.use(
+    '/image',
+    express.static(
+        path.join(__dirname, '../data')
+    )
+)
+
+
+// Get all Pictures information
+app.get('/infoAll', cors(), (req, res) =>{
     Picture.find({}, (err, pers) =>{
         if(err){
             res.status(404).send('Error while loading all Pictures')
@@ -29,7 +38,6 @@ app.get('/pictureAll', cors(), (req, res) =>{
                 console.log("Found picture: " + JSON.stringify(p.toJSON()))
                 return p.toJSON()
             });
-
             res.send(persons)
         }
 
@@ -37,8 +45,8 @@ app.get('/pictureAll', cors(), (req, res) =>{
 });
 
 
-// Get Picture with specific id
-app.get('/picture/:id', (req, res) => {
+// Get Picture information with specific id
+app.get('/info/:id', (req, res) => {
     const id = req.params.id
     console.log('Accessed picture with id: ' + id)
 
@@ -68,7 +76,8 @@ app.get('/picture/:id', (req, res) => {
 
 })
 
-app.put('/picture/:id', (req, res) =>{
+// update picture with a specific vote
+app.put('/info/:id', (req, res) =>{
     const id = req.params.id
     console.log('Accessing picture with id: ' + id);
     if(req.body.title){
@@ -98,7 +107,7 @@ app.put('/picture/:id', (req, res) =>{
 
 
 // connect to Mongoose and start server
-mongoose.connect(db_path, mongoOptions).then( () =>{
+mongoose.connect(mongoOptions.db_path, mongoOptions.options).then( () =>{
     app.listen(
         port,
         () =>{
