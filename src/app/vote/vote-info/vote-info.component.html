@@ -17,14 +17,22 @@
         Drücke «Umfrage» und es kann losgehen!
     </div>
 
-
-    <div *ngIf="!isNaN(continue_id); else startSurvey">
-        <a [routerLink]="[base_url, continue_id]">Continue</a>
-    </div>
-
-    <ng-template #startSurvey>
-        <div>
-            <a [routerLink]="[base_url, starting_id]">Start</a>
+    <div class="link-container">
+        <div *ngIf="!isNaN(continue_id); else startSurvey">
+            <a [routerLink]="[base_url, continue_id]">Continue</a>
         </div>
-    </ng-template>
+
+        <ng-template #startSurvey>
+            <div>
+                <a [routerLink]="[base_url, starting_id]">Umfrage</a>
+            </div>
+        </ng-template>
+
+        <div class="archiv-link">
+            <a routerLink="/archiv">Archiv</a>
+        </div>
+        <div class="more-link">
+            <a routerLink="/mehr">Mehr</a>
+        </div>
+    </div>
 </div>

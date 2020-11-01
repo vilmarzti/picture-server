@@ -28,11 +28,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'archive',
+    path: 'archiv',
     component: ViewAllComponent,
   },
   {
-    path: 'archive/:id',
+    path: 'archiv/:id',
     component: ViewIdComponent,
   },
   {
@@ -48,8 +48,12 @@ const routes: Routes = [
     redirectTo: 'draw/baseline'
   },
   {
-    path: '',
+    path: 'mehr',
     component: HomeComponent
+  },
+  {
+    path: '',
+    component: VoteInfoComponent 
   },
   {
     path: '**',
