@@ -10,6 +10,8 @@
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-around;
+    max-width: 1400px;
+    margin: auto;
 }
 
 .img-container{
@@ -17,8 +19,6 @@
     height: 200px;
     display: flex;
     align-items: center;
-    max-width: 1400px;
-    margin: auto;
 }
 
 img{
