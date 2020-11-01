@@ -1,12 +1,15 @@
 .text-container{
     max-width: 720px;
-    margin: 30px auto 50px auto;
+    margin: 70px auto 50px auto;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .list{
     display:flex;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: space-around;
 }
 
 .img-container{
