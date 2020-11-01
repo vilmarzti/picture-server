@@ -9,8 +9,8 @@ import { PictureService } from 'src/app/shared/picture.service';
   styleUrls: ['./view-id.component.scss']
 })
 export class ViewIdComponent implements OnInit, OnDestroy {
-  public first_url = "/archive";
-  public base_url = "/archive";
+  public first_url = "/archiv";
+  public base_url = "/archiv";
   public picture: Picture;
   private _id: number = NaN;
   private _interval;
