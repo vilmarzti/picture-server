@@ -1,4 +1,25 @@
 .container{
     display: flex;
     flex-direction: column;
+    max-width: 1400px;
+    padding: 0px 20px 0px 20px;
+    margin:auto;
+}
+
+.img_input{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: auto;
+}
+
+.img_input form{
+    display: flex;
+    flex-direction: column;
+    max-width: 720px;
+}
+
+.img_input form input[type=submit]{
+    max-width: 300px;
+    margin: auto;
 }
