@@ -1,14 +1,19 @@
-<div *ngIf="picture" class="body">
-    <img [src]="picture.url" width="300">
-    <div *ngFor="let title of picture.titles">
-        {{title.title}}: {{title.votes}}
+<div class="container">
+    <div class="side-container left">
+        <app-prev-button [base_url]="base_url"></app-prev-button>
     </div>
-</div>
-<br>
-<br>
-
-<app-next-button [base_url]="base_url"></app-next-button>
-<app-prev-button [base_url]="base_url"></app-prev-button>
-<div>
-    <a routerLink="/archiv">Archiv</a>
+    <div *ngIf="picture" class="body">
+        <img [src]="picture.url" width="300">
+        <div class="human-titles">
+            <div *ngFor="let title of picture.titles" class="human-title">
+                {{title.title}}: {{title.votes}}
+            </div>
+        </div>
+        <div class="archive-link">
+            <a routerLink="/archiv">Archiv</a>
+        </div>
+    </div>
+    <div class="side-container right">
+        <app-next-button [base_url]="base_url"></app-next-button>
+    </div>
 </div>
