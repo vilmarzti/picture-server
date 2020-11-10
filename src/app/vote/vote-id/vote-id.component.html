@@ -1,4 +1,5 @@
 <div class="container">
+    <div class="side-container left"></div>
     <div class="img_input">
         <img *ngIf="picture" [src]="picture.url">
         <app-position></app-position>
@@ -6,9 +7,9 @@
             <input [(ngModel)]="title" type="text" class="title" name="title">
             <input type="submit" value="senden">
         </form>
-    </div>
-    <div class="text">
         <a [routerLink]="['/vote', 'info']">Info</a>
+    </div>
+    <div class="side-container right">
         <app-next-button [base_url]="base_url" [last_url]="'/vote/bye'"></app-next-button>
     </div>
 </div>
