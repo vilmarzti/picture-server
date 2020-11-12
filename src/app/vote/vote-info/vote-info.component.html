@@ -1,38 +1,45 @@
 <div class="container">
-    <div class="title">
-        Vielen Dank, nimmst du an meinem Bachelorprojekt teil!
-    </div>
-
-    <div class="text">
-        Es folgen fünfzig isolierte Zeichen aus handgeschriebenen Texten. Sie ergeben wenig Sinn ohne ihren
-        ursprünglichen
-        Kontext und sind deshalb interpretationsbedürftige Bilder.
-        <br><br>
-        Gib ihnen neuen Sinn, indem du benennst, was du siehst. Vielleicht kannst du das Geschriebene entziffern?
-        Vielleicht aber hast du freie Assoziationen, ähnlich wie bei einem Rorschacher Test. Fühle dich frei in deiner
-        Interpretation.
-        <br><br>
-        Im Textfeld unter dem jeweiligen Bild teilst du in eigenen Worten, was du siehst und gelangst mit «senden» zur
-        nächsten Geste. Falls du keine Idee hast, dann kannst du das Bild auch mit «next» überspringen.
-        Drücke «Umfrage» und es kann losgehen!
-    </div>
-
-    <div class="link-container">
-        <div *ngIf="!isNaN(continue_id); else startSurvey">
-            <a [routerLink]="[base_url, continue_id]">Continue</a>
+    <div class="text-container">
+        <div class="title">
+            Vielen Dank, nimmst du an meinem Bachelorprojekt teil!
         </div>
 
-        <ng-template #startSurvey>
-            <div>
-                <a [routerLink]="[base_url, starting_id]">Umfrage</a>
+        <div class="text">
+            Es folgen fünfzig isolierte Zeichen aus handgeschriebenen Texten. Sie ergeben wenig Sinn ohne ihren
+            ursprünglichen
+            Kontext und sind deshalb interpretationsbedürftige Bilder.
+            <br><br>
+            Gib ihnen neuen Sinn, indem du benennst, was du siehst. Vielleicht kannst du das Geschriebene entziffern?
+            Vielleicht aber hast du freie Assoziationen, ähnlich wie bei einem Rorschacher Test. Fühle dich frei in
+            deiner
+            Interpretation.
+            <br><br>
+            Im Textfeld unter dem jeweiligen Bild teilst du in eigenen Worten, was du siehst und gelangst mit «senden»
+            zur
+            nächsten Geste. Falls du keine Idee hast, dann kannst du das Bild auch mit «next» überspringen.
+            Drücke «Umfrage» und es kann losgehen!
+        </div>
+
+        <div class="link-container">
+            <div *ngIf="!isNaN(continue_id); else startSurvey">
+                <a [routerLink]="[base_url, continue_id]">Continue</a>
             </div>
-        </ng-template>
 
-        <div class="archiv-link">
-            <a routerLink="/archiv">Archiv</a>
-        </div>
-        <div class="more-link">
-            <a routerLink="/mehr">Mehr</a>
+            <ng-template #startSurvey>
+                <div>
+                    <a [routerLink]="[base_url, starting_id]">Umfrage</a>
+                </div>
+            </ng-template>
+
+            <div class="archiv-link">
+                <a routerLink="/archiv">Archiv</a>
+            </div>
+            <div class="more-link">
+                <a routerLink="/mehr">Mehr</a>
+            </div>
         </div>
     </div>
+</div>
+<div class="background">
+    <img *ngFor="let p of pictures" [src]="p.url" #backgroundImage>
 </div>

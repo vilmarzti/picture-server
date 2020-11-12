@@ -1,12 +1,19 @@
 @import "../../../styles.scss";
 
 .container{
-    max-width: 720px;
-    margin: auto;
+    left: 50%;
+    position: absolute;
+}
 
-    .title{
-        margin-top: 50px;
-    }
+.text-container{
+    max-width:720px;
+    position: relative;
+    left: -50%;
+    background-color: white;
+    padding: 20px 10px 10px 10px;
+}
+
+.text-container .title{
 }
 
 .link-container{
@@ -14,4 +21,19 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.background{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.background img{
+    width: 10%;
+}
+
+@media only screen and (max-width: 1200px){
+    .background img{
+        width: 20%;
+    }
 }
