@@ -15,7 +15,7 @@ if(process.argv.length == 4){
     let picture_path = process.argv[2];
     let save_path = process.argv[3]
 
-    if(fs.realpathSync(svg_path)){
+    if(fs.realpathSync(picture_path)){
         let files = fs.readdirSync(picture_path);
 
         for(let file of files){
