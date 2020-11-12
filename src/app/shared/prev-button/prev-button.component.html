@@ -1,9 +1,9 @@
 <div *ngIf="!isNan(prev_id); else GoToFirst">
-    <a [routerLink]="[base_url, prev_id]">Previous</a>
+    <mat-icon [routerLink]="[base_url, prev_id]">keyboard_arrow_left</mat-icon>
 </div>
 
 <ng-template #GoToFirst>
     <div *ngIf="first_url">
-        <a [routerLink]="first_url">Archive</a>
+        <mat-icon [routerLink]="first_url">keyboard_arrow_left</mat-icon>
     </div>
 </ng-template>

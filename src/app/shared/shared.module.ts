@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { PrevButtonComponent } from './prev-button/prev-button.component';
 import { PositionComponent } from './position/position.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -13,7 +14,8 @@ import { PositionComponent } from './position/position.component';
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule
+    RouterModule,
+    MatIconModule
   ],
   exports: [
     NextButtonComponent,

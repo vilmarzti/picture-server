@@ -1,9 +1,9 @@
 <div *ngIf="!isNaN(next_id);else goToLast">
-    <a [routerLink]="[base_url, next_id]">Next</a>
+    <mat-icon class="icon" [routerLink]="[base_url, next_id]">keyboard_arrow_right</mat-icon>
 </div>
 
 <ng-template #goToLast>
     <div *ngIf="last_url">
-        <a [routerLink]="last_url">Bye</a>
+        <mat-icon class="icon" [routerLink]="last_url">keyboard_arrow_right</mat-icon>
     </div>
 </ng-template>
