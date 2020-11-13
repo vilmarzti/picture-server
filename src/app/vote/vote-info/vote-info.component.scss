@@ -1,6 +1,7 @@
 @import "../../../styles.scss";
 
 .container{
+    top: 20%;
     left: 50%;
     position: absolute;
 }
@@ -10,10 +11,8 @@
     position: relative;
     left: -50%;
     background-color: white;
-    padding: 20px 10px 10px 10px;
-}
-
-.text-container .title{
+    padding: 20px 30px 20px 30px;
+    margin-bottom: 40px;
 }
 
 .link-container{
