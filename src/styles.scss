@@ -3,6 +3,10 @@ $title-font: Lato;
 $title-size: 32px;
 $text-font: merriweather;
 
+body{
+    margin: 0px;
+}
+
 .title{
     font-family: $title-font;
     font-size: $title-size;
