@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { timeout } from 'rxjs/operators';
 import { Picture } from 'src/app/shared/picture';
 import { PictureService } from 'src/app/shared/picture.service';
@@ -8,17 +8,20 @@ import { PictureService } from 'src/app/shared/picture.service';
   templateUrl: './vote-info.component.html',
   styleUrls: ['./vote-info.component.scss']
 })
-export class VoteInfoComponent implements OnInit, AfterViewInit {
+export class VoteInfoComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   @ViewChildren('backgroundImage') private _backgroundImages: QueryList<ElementRef>
 
+  public isNaN = isNaN;
   public base_url: string = "/vote";
-  public backgroundImagesInit: boolean = true;
   public continue_id: number = 0;
   public starting_id: number = 0;
-  public isNaN: Function = isNaN;
   public backgroundPictures: Picture[] = [];
+  public backgroundImagesInit: boolean = true;
   private _pictures: Picture[] = [];
+
+  private _imageHeight = 597.0;
+  private _imageWidth = 844.0;
 
   constructor(
     private pictureService: PictureService
@@ -31,32 +34,6 @@ export class VoteInfoComponent implements OnInit, AfterViewInit {
     // get saved id
     this.continue_id = this.pictureService.currentId;
 
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event): void {
-    let html = document.documentElement
-    let body = document.body;
-
-
-    let screen_height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-    let screen_width = Math.max(body.scrollWidth, body.offsetWidth, html.clientWidth, html.scrollWidth, html.offsetWidth);
-
-    let box_height = this._backgroundImages.first.nativeElement.height;
-    let box_width = this._backgroundImages.first.nativeElement.width;
-    console.log(box_height);
-    console.log(box_width);
-
-    let num_boxes = Math.ceil((screen_height * screen_width) / (box_height * box_width));
-    console.log(num_boxes);
-
-    /*for (let i = 0; i < num_boxes; i++) {
-      this.backgroundPictures.push(this._pictures[i % this._pictures.length])
-    }
-    */
-  }
-
-  ngAfterViewInit(): void {
     // get starting id and load pictures for background
     this.pictureService.getAllPictures().subscribe(
       pictures => {
@@ -70,7 +47,35 @@ export class VoteInfoComponent implements OnInit, AfterViewInit {
         console.log(err);
       }
     )
+  }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event): void {
+    let html = document.documentElement
+    let body = document.body;
+
+    let imageWidth = this._backgroundImages.first.nativeElement.width;
+    let imageHeight = (imageWidth / this._imageWidth) * this._imageHeight;
+
+    this.backgroundPictures = [];
+    setTimeout(() => {
+      let screenHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+      let screenWidth = Math.max(body.scrollWidth, body.offsetWidth, html.clientWidth, html.scrollWidth, html.offsetWidth);
+
+      let numWidth = Math.round(screenWidth / imageWidth);
+      let numHeight = Math.ceil(screenHeight / imageHeight);
+
+      let num_boxes = numWidth * numHeight;
+      console.log("num_boxes" + num_boxes);
+
+      this.backgroundPictures = [];
+      for (let i = 0; i < num_boxes; i++) {
+        this.backgroundPictures.push(this._pictures[i % this._pictures.length])
+      }
+    }, 10)
+  }
+
+  ngAfterViewChecked(): void {
     this._backgroundImages.changes.subscribe(
       () => {
         if (this.backgroundImagesInit) {
@@ -81,5 +86,8 @@ export class VoteInfoComponent implements OnInit, AfterViewInit {
         }
       }
     )
+  }
+
+  ngAfterViewInit(): void {
   }
 }
