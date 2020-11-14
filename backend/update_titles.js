@@ -1,12 +1,15 @@
 con = Mongo()
 
-db = con.getDB('picture-server')
+db = con.getDB("admin")
+db.auth("admin")
 
-db.pictures.update(
+db = con.getDB("picture-server")
+
+db.pictures.updateMany(
     {},
     {
         $rename: {
-            'titles': 'human'
+            "titles": "human_titles"
         }
-    }
+    }, 
 )

@@ -6,7 +6,6 @@ const pictureSchema = require('./schema')
 
 const Picture = mongoose.model('Picture', pictureSchema)
 
-
 async function updatePaths(new_path) {
     let pictures = await Picture.find();
     for (let picture of pictures) {

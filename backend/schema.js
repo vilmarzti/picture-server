@@ -6,10 +6,18 @@ let pictureSchema = new mongoose.Schema({
         type: String,
         unique: true
     },
-    titles: [{
+    human_titles: [{
         title: String,
         votes: Number
-        }]
+    }],
+    baseline_titles: [{
+            title: String,
+            votes: Number
+    }],
+    seq2seq_titles: [{
+        title: String,
+        votes: Number
+    }]
 });
 
 pictureSchema.plugin(AutoIncrement, {inc_field: 'id'});

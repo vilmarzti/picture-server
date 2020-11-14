@@ -5,7 +5,7 @@
     <div *ngIf="picture" class="body">
         <img [src]="picture.url" width="300">
         <div class="human-titles">
-            <div *ngFor="let title of picture.titles" class="human-title">
+            <div *ngFor="let title of picture.human_titles" class="human-title">
                 {{title.title}}: {{title.votes}}
             </div>
         </div>

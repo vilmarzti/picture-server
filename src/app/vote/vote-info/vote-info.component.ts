@@ -61,7 +61,9 @@ export class VoteInfoComponent implements OnInit, AfterViewInit {
     let imageWidth = this._backgroundImages.first.nativeElement.width;
     let imageHeight = (imageWidth / this._imageWidth) * this._imageHeight;
 
+    // remove all background pictures
     setTimeout(() => {this.backgroundPictures = []});
+
     // compute the number of imgaes needed and add them to the background
     setTimeout(() => {
       let screenHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
@@ -71,7 +73,6 @@ export class VoteInfoComponent implements OnInit, AfterViewInit {
       let numHeight = Math.ceil(screenHeight / imageHeight);
 
       let num_boxes = numWidth * numHeight;
-      console.log("num_boxes" + num_boxes);
 
       let pictures = []
       for (let i = 0; i < num_boxes; i++) {
