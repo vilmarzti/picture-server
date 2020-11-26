@@ -1,4 +1,4 @@
-const mongoose      = require('mongoose');
+const mongoose      = require('mongoose')
 const fs            = require('fs')
 const pictureSchema = require('./schema')
 const mongoOptions  = require('./mongoose_options')

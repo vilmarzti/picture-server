@@ -31,6 +31,8 @@
     "mongoose-sequence": "^5.2.2",
     "rxjs": "~6.6.0",
     "seedrandom": "^3.0.5",
+    "svg.js": "^2.7.1",
+    "svgdom": "^0.1.8",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },
