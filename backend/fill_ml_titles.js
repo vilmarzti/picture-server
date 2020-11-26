@@ -9,7 +9,7 @@ const { createSVGWindow } = require('svgdom')
 const port = 8001 // the port where the deeplearning model is listenting
 const svg_path = "./data/SVG" // path to the folder with the svg's
 const step_distance = 3 // at every <step_distance> there is a cut
-const Picture = mongoose.model('Picture', pictureSchema) // the schema with which 
+const Picture = mongoose.model('Picture', pictureSchema) // the schema with which find and update models
 
 // Functions
 
@@ -120,8 +120,11 @@ function send_to_server(text_object, interpretations) {
 
 // process filename
 async function process(file_name) {
+    // get the new titles
+
+
+    // get picture where the filename is included
     const file_basename = file_name.slice(0, -4)
-    // get picture where 
     const picture = await Picture.find(
         {
             "path": {
