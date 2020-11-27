@@ -89,7 +89,7 @@ function compose_data_format(paths) {
                 type = "start"
             }
 
-            if (index === path.length) {
+            if (index === path.length - 1) {
                 type = "end"
                 ev = 1
             }
