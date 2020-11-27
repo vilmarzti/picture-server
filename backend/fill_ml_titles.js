@@ -110,7 +110,7 @@ function compose_data_format(paths) {
 }
 
 // sends the formatted paths to the server
-async function send_to_server(text_object, interpretations) {
+function send_to_server(text_object, interpretations) {
     let options = {
         hostname: "127.0.0.1",
         port: port,
