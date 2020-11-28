@@ -110,7 +110,7 @@ function compose_data_format(paths) {
 }
 
 // sends the formatted paths to the server
-function send_to_server(text_object, interpretations) {
+function send_to_server(text_object) {
     let options = {
         hostname: "127.0.0.1",
         port: port,
@@ -123,26 +123,30 @@ function send_to_server(text_object, interpretations) {
     };
 
     let body_chunks = []
-    const req = http.request(
-        options,
-        (res) => {
-            res.on('data', (chunk) => {
-                body_chunks.push(chunk)
-            });
-            res.on('end', () => {
-                let body = Buffer.concat(body_chunks).toString()
-                interpretations.push(body)
-                console.log(" " + JSON.parse(body).result)
-            })
-        }
-    )
+    let interpretations = [];
 
-    req.on('error', (e) => {
-        console.log(e.message)
-    });
+    return new Promise((resolve, reject) =>{
+        const req = http.request(
+            options,
+            (res) => {
+                res.on('data', (chunk) => {
+                    body_chunks.push(chunk)
+                })
+                res.on('end', () => {
+                    let body = Buffer.concat(body_chunks).toString()
+                    interpretations.push(body)
+                    resolve(body)
+                })
+            }
+        )
 
-    req.write(JSON.stringify(text_object))
-    req.end()
+        req.on('error', (e) =>{
+            reject(e)
+        })
+
+        req.write(JSON.stringify(text_object))
+        req.end()
+    })
 }
 
 // process filename
@@ -153,16 +157,16 @@ async function process(file_name, file_path) {
     // create canvas
     let draw = SVG(document.documentElement)
 
-    // draw SVG
+    draw.clear()
     let store = draw.svg(svg_text)
     const cut_paths = cut_path_steps(store.find("path"))
 
     // get permutations of paths
     //const permutations = permutator(cut_paths)
 
-    let interpretations = [];
     const json_format = compose_data_format(cut_paths);
-    send_to_server(json_format, interpretations);
+    const interpretation = await send_to_server(json_format);
+    console.log(interpretation)
 
     // get the new titles
     /*
@@ -207,7 +211,7 @@ async function main() {
 
         // Go through all files
         for (const geste of files) {
-            process(geste, svg_path)
+            await process(geste, svg_path)
         }
     }
 }
