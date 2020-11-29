@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const http = require('http')
+const Promise = require('bluebird')
 const mongoose = require('mongoose')
 const mongoOptions = require('./mongoose_options')
 const pictureSchema = require('./schema')
@@ -12,11 +13,13 @@ const port = 8001 // the port where the deeplearning model is listenting
 const svg_path = "./data/SVG" // path to the folder with the svg's
 const step_distance = 3 // at every <step_distance> there is a cut
 const Picture = mongoose.model('Picture', pictureSchema) // the schema with which find and update models
+const concurrency = 100 // number of concurrent server-requests
 const window = createSVGWindow()
 const document = window.document
 
 // Initialization of SVG-Utilities
 const { SVG, registerWindow } = require('@svgdotjs/svg.js')
+const { server } = require('karma')
 registerWindow(window, document)
 
 // Functions
@@ -125,7 +128,7 @@ function send_to_server(text_object) {
     let body_chunks = []
     let interpretations = [];
 
-    return new Promise((resolve, reject) =>{
+    return new Promise((resolve, reject) => {
         const req = http.request(
             options,
             (res) => {
@@ -140,7 +143,7 @@ function send_to_server(text_object) {
             }
         )
 
-        req.on('error', (e) =>{
+        req.on('error', (e) => {
             reject(e)
         })
 
@@ -162,29 +165,40 @@ async function process(file_name, file_path) {
     const cut_paths = cut_path_steps(store.find("path"))
 
     // get permutations of paths
-    //const permutations = permutator(cut_paths)
+    const permutations = permutator(cut_paths)
 
-    const json_format = compose_data_format(cut_paths);
-    const interpretation = await send_to_server(json_format);
-    console.log(interpretation)
+    //const json_format = compose_data_format(cut_paths);
+    //const interpretation = await send_to_server(json_format);
+    //console.log(interpretation)
+
+    console.log("Number of permutations: " + permutations.length)
+
+    interpretations = await Promise.map(
+        permutations,
+        (path) => {
+            const json_format = compose_data_format(path)
+            return send_to_server(json_format)
+        },
+        {
+            concurrency: concurrency
+        }
+    )
+
+
 
     // get the new titles
     /*
     let interpretations = []
-    let bool = true;
+    console.log(permutations.length)
     for (const path of permutations) {
         const json_format = compose_data_format(path)
-        setTimeout(
-            () => {
-                send_to_server(json_format, interpretations)
-            },
-            10
-        )
+        const interpretation = await send_to_server(json_format)
+        interpretations.push(interpretation)
     }
     */
 
 
-
+    console.log(interpretations[0])
 
     // get picture where the filename is included
     const file_basename = file_name.slice(0, -4)
