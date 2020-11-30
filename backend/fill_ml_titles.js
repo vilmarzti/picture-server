@@ -9,6 +9,7 @@ const { createSVGWindow } = require('svgdom')
 
 
 // Constants
+const num_samples = 1000 // how many samples we take from the permutations
 const port = 8001 // the port where the deeplearning model is listenting
 const svg_path = "./data/SVG" // path to the folder with the svg's
 const step_distance = 3 // at every <step_distance> there is a cut
@@ -166,15 +167,22 @@ async function process(file_name, file_path) {
 
     // get permutations of paths
     const permutations = permutator(cut_paths)
-
-    //const json_format = compose_data_format(cut_paths);
-    //const interpretation = await send_to_server(json_format);
-    //console.log(interpretation)
-
     console.log("Number of permutations: " + permutations.length)
 
+    // if there are too many permuatations take a represantative random sample
+    let perm_samples = []
+    const perm_size = permutations.length
+    if (perm_size > num_samples) {
+        for (let i = 0; i < num_samples; i++) {
+            let random_index = Math.floor(Math.random() * perm_size)
+            perm_samples.push(permutations[random_index])
+        }
+    } else {
+        perm_samples = permutations
+    }
+
     interpretations = await Promise.map(
-        permutations,
+        perm_samples,
         (path) => {
             const json_format = compose_data_format(path)
             return send_to_server(json_format)
@@ -183,20 +191,6 @@ async function process(file_name, file_path) {
             concurrency: concurrency
         }
     )
-
-
-
-    // get the new titles
-    /*
-    let interpretations = []
-    console.log(permutations.length)
-    for (const path of permutations) {
-        const json_format = compose_data_format(path)
-        const interpretation = await send_to_server(json_format)
-        interpretations.push(interpretation)
-    }
-    */
-
 
     console.log(interpretations[0])
 
