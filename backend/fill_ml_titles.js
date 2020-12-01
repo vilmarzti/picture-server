@@ -21,6 +21,7 @@ const document = window.document
 // Initialization of SVG-Utilities
 const { SVG, registerWindow } = require('@svgdotjs/svg.js')
 const { server } = require('karma')
+const { title } = require('process')
 registerWindow(window, document)
 
 // Functions
@@ -110,8 +111,6 @@ function send_to_server(text_object) {
     };
 
     let body_chunks = []
-    let interpretations = [];
-
     return new Promise((resolve, reject) => {
         const req = http.request(
             options,
@@ -121,8 +120,8 @@ function send_to_server(text_object) {
                 })
                 res.on('end', () => {
                     let body = Buffer.concat(body_chunks).toString()
-                    interpretations.push(body)
-                    resolve(body)
+                    let body_parsed = JSON.parse(body)
+                    resolve(body_parsed)
                 })
             }
         )
@@ -148,9 +147,13 @@ async function process(file_name, file_path) {
     let store = draw.svg(svg_text)
     const cut_paths = cut_path_steps(store.find("path"))
 
+    // sort paths by ascending x axis
+    cut_paths.sort((a, b) => a[0].x - b[0].x)
+    const permutations = [cut_paths]
+
     // get permutations of paths
-    const permutations = permutator(cut_paths)
-    console.log("Number of permutations: " + permutations.length)
+    // const permutations = permutator(cut_paths)
+    console.log(file_name + " - permutations: " + permutations.length + " - Maximal " + num_samples + " entries")
 
     // if there are too many permuatations take a represantative random sample
     let perm_samples = []
@@ -164,6 +167,7 @@ async function process(file_name, file_path) {
         perm_samples = permutations
     }
 
+    // send perm_samples to server and get the interpretations back
     interpretations = await Promise.map(
         perm_samples,
         (path) => {
@@ -175,7 +179,28 @@ async function process(file_name, file_path) {
         }
     )
 
-    console.log(interpretations[0])
+    // remove excess information an whitespaces
+    for(let i=0; i<interpretations.length; i++){
+        interpretations[i] = interpretations[i].result.trim()
+    }
+
+    let unique_interpretations = interpretations.filter((value, index, self) => self.indexOf(value) == index)
+
+    let title_votes =  []
+    for(let unique of unique_interpretations){
+        // count how many times a given interpretation is in the array
+        let votes = interpretations.filter(interpretation => interpretation === unique).length
+        title_votes.push({
+            "title": unique,
+            "vote": votes
+        })
+    }
+
+    // sort titles by vote
+    title_votes.sort((a, b) => b.vote - a.vote)
+    for(let title of title_votes){
+        console.log(title.title + ": " + title.vote)
+    }
 
     // get picture where the filename is included
     const file_basename = file_name.slice(0, -4)
@@ -192,13 +217,14 @@ async function process(file_name, file_path) {
 
 // Main execution
 async function main() {
-    mongoose.connect(mongoOptions.db_path, mongoOptions.options)
+    await mongoose.connect(mongoOptions.db_path, mongoOptions.options)
     console.log('mongoose connected')
 
     // Check if svg_path exists
     if (fs.realpathSync(svg_path)) {
         // read all the filenames in the given directory
         const files = fs.readdirSync(svg_path)
+        files.sort()
 
         // Go through all files
         for (const geste of files) {
