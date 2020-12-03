@@ -11,8 +11,8 @@ let pictureSchema = new mongoose.Schema({
         votes: Number
     }],
     baseline_titles: [{
-            title: String,
-            votes: Number
+        title: String,
+        votes: Number
     }],
     seq2seq_titles: [{
         title: String,

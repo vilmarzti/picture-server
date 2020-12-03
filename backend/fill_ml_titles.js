@@ -9,8 +9,9 @@ const { createSVGWindow } = require('svgdom')
 
 
 // Constants
+const model = "baseline" // which model we use
 const num_samples = 1000 // how many samples we take from the permutations
-const port = 8001 // the port where the deeplearning model is listenting
+const port = model == "baseline" ? 8001 : 8002 // the port where the deeplearning model is listenting
 const svg_path = "./data/SVG" // path to the folder with the svg's
 const step_distance = 3 // at every <step_distance> there is a cut
 const Picture = mongoose.model('Picture', pictureSchema) // the schema with which find and update models
@@ -149,10 +150,11 @@ async function process(file_name, file_path) {
 
     // sort paths by ascending x axis
     cut_paths.sort((a, b) => a[0].x - b[0].x)
-    const permutations = [cut_paths]
 
     // get permutations of paths
-    // const permutations = permutator(cut_paths)
+    // const permutations = [cut_paths]
+    const permutations = permutator(cut_paths)
+
     console.log(file_name + " - permutations: " + permutations.length + " - Maximal " + num_samples + " entries")
 
     // if there are too many permuatations take a represantative random sample
@@ -180,26 +182,27 @@ async function process(file_name, file_path) {
     )
 
     // remove excess information an whitespaces
-    for(let i=0; i<interpretations.length; i++){
+    for (let i = 0; i < interpretations.length; i++) {
         interpretations[i] = interpretations[i].result.trim()
     }
 
     let unique_interpretations = interpretations.filter((value, index, self) => self.indexOf(value) == index)
 
-    let title_votes =  []
-    for(let unique of unique_interpretations){
+    let title_votes = []
+    for (let unique of unique_interpretations) {
         // count how many times a given interpretation is in the array
         let votes = interpretations.filter(interpretation => interpretation === unique).length
         title_votes.push({
             "title": unique,
-            "vote": votes
+            "votes": votes
         })
     }
 
     // sort titles by vote
-    title_votes.sort((a, b) => b.vote - a.vote)
-    for(let title of title_votes){
-        console.log(title.title + ": " + title.vote)
+    title_votes.sort((a, b) => b.votes - a.votes)
+    for (let [index, title] of title_votes.entries()) {
+        console.log(title.title + ": " + title.votes)
+        if (index > 10) break
     }
 
     // get picture where the filename is included
@@ -207,18 +210,33 @@ async function process(file_name, file_path) {
     const picture = await Picture.find(
         {
             "path": {
-                "$regex": file_basename,
+                "$regex": file_basename + ".png",
                 "$options": "i"
             }
         }
     )
+
+    if (picture.length > 0) {
+        for (let [index, title] of title_votes.entries()) {
+            if (index >= 10) break
+            if (model === "baseline")
+                try{
+                    picture[0].baseline_titles.push(title)
+                } catch(err){
+                    console.log(err)
+                }
+            else
+                picture[0].seq2seq_titles.push(title)
+            await picture[0].save()
+        }
+    }
 }
 
 
 // Main execution
 async function main() {
     await mongoose.connect(mongoOptions.db_path, mongoOptions.options)
-    console.log('mongoose connected')
+    //console.log('mongoose connected')
 
     // Check if svg_path exists
     if (fs.realpathSync(svg_path)) {
@@ -231,6 +249,8 @@ async function main() {
             await process(geste, svg_path)
         }
     }
+
+    await mongoose.disconnect()
 }
 
 // execute code

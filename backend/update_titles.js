@@ -13,3 +13,12 @@ db.pictures.updateMany(
         }
     }, 
 )
+
+db.pictures.aggregate( [
+    {
+        $addFields :{
+            "baseline_titles": [],
+            "seq2seq_titles": []
+        }
+    }
+])
