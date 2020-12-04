@@ -9,7 +9,7 @@ const { createSVGWindow } = require('svgdom')
 
 
 // Constants
-const model = "seq2seq" // which model we use
+const model = "baseline" // which model we use
 const num_samples = 1000 // how many samples we take from the permutations
 const port = model == "baseline" ? 8001 : 8002 // the port where the deeplearning model is listenting
 const svg_path = "./data/SVG" // path to the folder with the svg's
@@ -67,7 +67,8 @@ function compose_data_format(paths) {
     let text_object = {
         wholeword_segments: "",
         word_ascii: "",
-        word_stroke: []
+        word_stroke: [],
+        num_interpretations: 5
     }
     for (let path of paths) {
         for (let [index, point] of path.entries()) {
@@ -152,8 +153,8 @@ async function process(file_name, file_path) {
     cut_paths.sort((a, b) => a[0].x - b[0].x)
 
     // get permutations of paths
-    // const permutations = [cut_paths]
-    const permutations = permutator(cut_paths)
+    const permutations = [cut_paths]
+    //const permutations = permutator(cut_paths)
 
     console.log(file_name + " - permutations: " + permutations.length + " - Maximal " + num_samples + " entries")
 
@@ -181,6 +182,11 @@ async function process(file_name, file_path) {
         }
     )
 
+    for(let [interpretation, value] of Object.entries(interpretations[0])){
+        console.log(interpretation + ": " + value)
+    }
+
+    /*
     // remove excess information an whitespaces
     for (let i = 0; i < interpretations.length; i++) {
         interpretations[i] = interpretations[i].result.trim()
@@ -230,6 +236,7 @@ async function process(file_name, file_path) {
             await picture[0].save()
         }
     }
+    */
 }
 
 
