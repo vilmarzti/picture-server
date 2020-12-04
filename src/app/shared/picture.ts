@@ -7,5 +7,13 @@ export interface Picture {
     titles: [{
         title: string,
         vote: number
+    }],
+    seq2seq_titles:[{
+        title: string,
+        vote: number
+    }],
+    baseline_titles: [{
+        title: string,
+        vote: number
     }]
 }

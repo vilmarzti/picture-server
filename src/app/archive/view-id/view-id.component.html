@@ -4,9 +4,30 @@
     </div>
     <div *ngIf="picture" class="body">
         <img [src]="picture.url" width="300">
-        <div class="human-titles">
-            <div *ngFor="let title of picture.human_titles" class="human-title">
-                {{title.title}}: {{title.votes}}
+        <div class="titles">
+            <div class="human-titles">
+                <div class="human-headline headline">
+                    Probanden Interpretationen
+                </div>
+                <div *ngFor="let title of picture.titles" class="human-interpretation interpretation">
+                    {{title.title}}: {{title.votes}}
+                </div>
+            </div>
+            <div class="baseline-titles">
+                <div class="human-headline headline">
+                    Baseline Interpretationen
+                </div>
+                <div *ngFor="let title of picture.baseline_titles" class="baseline-interpretation interpretation">
+                    {{title.title}}
+                </div>
+            </div>
+            <div class="seq2seq-titles">
+                <div class="human-headline headline">
+                    Seq2Seq Interpretationen
+                </div>
+                <div *ngFor="let title of picture.seq2seq_titles" class="seq2seq-interpretation interpretation">
+                    {{title.title}}
+                </div>
             </div>
         </div>
         <div class="archive-link">

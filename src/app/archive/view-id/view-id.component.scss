@@ -3,22 +3,47 @@
     justify-content: space-around;
 }
 
-.archive-link{
-    text-align: center;
-    margin: 10px 0px 20px;
-}
-
-.human-titles{
-    max-width: 300px;
-}
-
-.human-title{
-    padding-top:10px;
-}
-
 .side-container{
     width: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.body {
+    width:100%
+}
+
+.titles{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.titles > *{
+    max-width: 300px;
+    min-width: 160px;
+}
+
+.headline {
+    font-weight:bold;
+    font-family: Lato;
+    margin-bottom: 20px;
+}
+
+.archive-link{
+    text-align: center;
+    margin: 10px 0px 20px;
+}
+
+.interpretation{
+    padding-top:10px;
+}
+
+
+
+img{
+    display:block;
+    margin:auto;
 }

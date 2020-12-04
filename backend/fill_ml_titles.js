@@ -9,7 +9,7 @@ const { createSVGWindow } = require('svgdom')
 
 
 // Constants
-const model = "baseline" // which model we use
+const model = "seq2seq" // which model we use
 const num_samples = 1000 // how many samples we take from the permutations
 const port = model == "baseline" ? 8001 : 8002 // the port where the deeplearning model is listenting
 const svg_path = "./data/SVG" // path to the folder with the svg's

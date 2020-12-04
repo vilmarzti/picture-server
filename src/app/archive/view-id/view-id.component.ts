@@ -30,6 +30,8 @@ export class ViewIdComponent implements OnInit, OnDestroy {
         this.pictureService.getPicture(this._id).subscribe(
           picture => {
             this.picture.titles = picture.titles;
+            this.picture.baseline_titles = picture.baseline_titles;
+            this.picture.seq2seq_titles = picture.seq2seq_titles;
           },
           error => {
             console.log('Error while reloading titles');
