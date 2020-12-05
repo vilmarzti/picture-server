@@ -10,8 +10,9 @@ const { createSVGWindow } = require('svgdom')
 
 // Constants
 const model = "baseline" // which model we use
+const port = model === "baseline" ? 8001 : 8002 // the port where the deeplearning model is listenting
+const titles_name = model === "baseline" ? "baseline_titles" : "seq2seq_titles"
 const num_samples = 1000 // how many samples we take from the permutations
-const port = model == "baseline" ? 8001 : 8002 // the port where the deeplearning model is listenting
 const svg_path = "./data/SVG" // path to the folder with the svg's
 const step_distance = 3 // at every <step_distance> there is a cut
 const Picture = mongoose.model('Picture', pictureSchema) // the schema with which find and update models
@@ -68,7 +69,7 @@ function compose_data_format(paths) {
         wholeword_segments: "",
         word_ascii: "",
         word_stroke: [],
-        num_interpretations: 5
+        num_interpretations: 10
     }
     for (let path of paths) {
         for (let [index, point] of path.entries()) {
@@ -182,9 +183,43 @@ async function process(file_name, file_path) {
         }
     )
 
+    // get interpretations into an order
+    interpretations_list = []
     for(let [interpretation, value] of Object.entries(interpretations[0])){
-        console.log(interpretation + ": " + value)
+        interpretations_list.push([interpretation, value])
     }
+    interpretations = interpretations_list.sort((a, b) => b[1] - a[1])
+
+    // print out the interpretations
+    for(let elem of interpretations){
+        console.log(elem[0] + ": " + elem[1])
+    }
+
+    // get picture where the filename is included
+    const file_basename = file_name.slice(0, -4)
+    let picture = await Picture.find(
+        {
+            "path": {
+                "$regex": file_basename + ".png",
+                "$options": "i"
+            }
+        }
+    )
+
+    // save the new interpretations in the database
+    if(picture.length > 0){
+        picture = picture[0]
+        // clear previous interpretations
+        picture[titles_name] = []
+        for(let elem of interpretations){
+            picture[titles_name].push({
+                "title": elem[0],
+                "votes": elem[1]
+            })
+        }
+        await picture.save()
+    }
+
 
     /*
     // remove excess information an whitespaces
