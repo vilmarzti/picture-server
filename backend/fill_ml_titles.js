@@ -13,6 +13,8 @@ const model = "seq2seq" // which model we use
 const num_samples = 1000 // how many samples we take from the permutations
 const num_interpretations = 10 // how many interpretations we want from the ml system
 const port = model == "baseline" ? 8001 : 8002 // the port where the deeplearning model is listenting
+const titles_name = model === "baseline" ? "baseline_titles" : "seq2seq_titles"
+const num_samples = 1000 // how many samples we take from the permutations
 const svg_path = "./data/SVG" // path to the folder with the svg's
 const step_distance = 3 // at every <step_distance> there is a cut
 const Picture = mongoose.model('Picture', pictureSchema) // the schema with which find and update models
@@ -167,9 +169,95 @@ async function process(file_name, file_path) {
         }
     )
 
+    // get interpretations into an order
+    interpretations_list = []
     for(let [interpretation, value] of Object.entries(interpretations[0])){
-        console.log(interpretation + ": " + value)
+        interpretations_list.push([interpretation, value])
     }
+    interpretations = interpretations_list.sort((a, b) => b[1] - a[1])
+
+    // print out the interpretations
+    for(let elem of interpretations){
+        console.log(elem[0] + ": " + elem[1])
+    }
+
+    // get picture where the filename is included
+    const file_basename = file_name.slice(0, -4)
+    let picture = await Picture.find(
+        {
+            "path": {
+                "$regex": file_basename + ".png",
+                "$options": "i"
+            }
+        }
+    )
+
+    // save the new interpretations in the database
+    if(picture.length > 0){
+        picture = picture[0]
+        // clear previous interpretations
+        picture[titles_name] = []
+        for(let elem of interpretations){
+            picture[titles_name].push({
+                "title": elem[0],
+                "votes": elem[1]
+            })
+        }
+        await picture.save()
+    }
+
+
+    /*
+    // remove excess information an whitespaces
+    for (let i = 0; i < interpretations.length; i++) {
+        interpretations[i] = interpretations[i].result.trim()
+    }
+
+    let unique_interpretations = interpretations.filter((value, index, self) => self.indexOf(value) == index)
+
+    let title_votes = []
+    for (let unique of unique_interpretations) {
+        // count how many times a given interpretation is in the array
+        let votes = interpretations.filter(interpretation => interpretation === unique).length
+        title_votes.push({
+            "title": unique,
+            "votes": votes
+        })
+    }
+
+    // sort titles by vote
+    title_votes.sort((a, b) => b.votes - a.votes)
+    for (let [index, title] of title_votes.entries()) {
+        console.log(title.title + ": " + title.votes)
+        if (index > 10) break
+    }
+
+    // get picture where the filename is included
+    const file_basename = file_name.slice(0, -4)
+    const picture = await Picture.find(
+        {
+            "path": {
+                "$regex": file_basename + ".png",
+                "$options": "i"
+            }
+        }
+    )
+
+    if (picture.length > 0) {
+        for (let [index, title] of title_votes.entries()) {
+            if (index >= 10) break
+            if (model === "baseline")
+                try{
+                    picture[0].baseline_titles.push(title)
+                } catch(err){
+                    console.log(err)
+                }
+            else
+                picture[0].seq2seq_titles.push(title)
+            await picture[0].save()
+        }
+    }
+    */
 }
 
 
