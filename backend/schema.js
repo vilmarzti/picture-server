@@ -6,9 +6,10 @@ let pictureSchema = new mongoose.Schema({
         type: String,
         unique: true
     },
-    human_titles: [{
+    titles: [{
         title: String,
-        votes: Number
+        votes: Number,
+        date: Date
     }],
     baseline_titles: [{
         title: String,

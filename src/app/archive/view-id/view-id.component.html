@@ -9,6 +9,15 @@
                 <div class="human-headline headline">
                     Probanden Interpretationen
                 </div>
+                <div class="newest">
+                    Neuste Interpretationen
+                </div>
+                <div *ngFor="let title of recent_votes" class="interpretation">
+                    {{title.title}}: {{title.votes}}
+                </div>
+                <div class="sorted">
+                    Bisherige Interpretationen
+                </div>
                 <div *ngFor="let title of picture.titles" class="human-interpretation interpretation">
                     {{title.title}}: {{title.votes}}
                 </div>
