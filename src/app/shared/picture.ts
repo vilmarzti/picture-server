@@ -6,14 +6,15 @@ export interface Picture {
     url: URL,
     titles: [{
         title: string,
-        vote: number
+        votes: number,
+        date: string,
     }],
     seq2seq_titles:[{
         title: string,
-        vote: number
+        votes: number
     }],
     baseline_titles: [{
         title: string,
-        vote: number
+        votes: number
     }]
 }

@@ -84,13 +84,15 @@ app.put('/info/:id', (req, res) =>{
         Picture.findOne({id: id}).then(
             doc =>{
                 console.log('Updating Picture')
-                let title = doc.human_titles.find(t => t.title === req.body.title)
+                let title = doc.titles.find(t => t.title === req.body.title)
                 if(title && title.title && title.votes){
                     title.votes += 1
+                    title.date = new Date()
                 }else{
-                    doc.human_titles.push({
+                    doc.titles.push({
                     title: req.body.title,
-                    votes: 1
+                    votes: 1,
+                    date: new Date()
                     })
                 }
                 doc.save();

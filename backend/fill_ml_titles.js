@@ -9,10 +9,11 @@ const { createSVGWindow } = require('svgdom')
 
 
 // Constants
-const model = "baseline" // which model we use
-const port = model === "baseline" ? 8001 : 8002 // the port where the deeplearning model is listenting
-const titles_name = model === "baseline" ? "baseline_titles" : "seq2seq_titles"
+const model = "seq2seq" // which model we use
 const num_samples = 1000 // how many samples we take from the permutations
+const num_interpretations = 10 // how many interpretations we want from the ml system
+const port = model == "baseline" ? 8001 : 8002 // the port where the deeplearning model is listenting
+const titles_name = model === "baseline" ? "baseline_titles" : "seq2seq_titles"
 const svg_path = "./data/SVG" // path to the folder with the svg's
 const step_distance = 3 // at every <step_distance> there is a cut
 const Picture = mongoose.model('Picture', pictureSchema) // the schema with which find and update models
@@ -69,7 +70,7 @@ function compose_data_format(paths) {
         wholeword_segments: "",
         word_ascii: "",
         word_stroke: [],
-        num_interpretations: 10
+        num_interpretations: num_interpretations
     }
     for (let path of paths) {
         for (let [index, point] of path.entries()) {
@@ -153,27 +154,11 @@ async function process(file_name, file_path) {
     // sort paths by ascending x axis
     cut_paths.sort((a, b) => a[0].x - b[0].x)
 
-    // get permutations of paths
-    const permutations = [cut_paths]
-    //const permutations = permutator(cut_paths)
-
-    console.log(file_name + " - permutations: " + permutations.length + " - Maximal " + num_samples + " entries")
-
-    // if there are too many permuatations take a represantative random sample
-    let perm_samples = []
-    const perm_size = permutations.length
-    if (perm_size > num_samples) {
-        for (let i = 0; i < num_samples; i++) {
-            let random_index = Math.floor(Math.random() * perm_size)
-            perm_samples.push(permutations[random_index])
-        }
-    } else {
-        perm_samples = permutations
-    }
+    console.log(file_name + " printing " + num_interpretations + " samples")
 
     // send perm_samples to server and get the interpretations back
     interpretations = await Promise.map(
-        perm_samples,
+        [cut_paths],
         (path) => {
             const json_format = compose_data_format(path)
             return send_to_server(json_format)
@@ -219,59 +204,6 @@ async function process(file_name, file_path) {
         }
         await picture.save()
     }
-
-
-    /*
-    // remove excess information an whitespaces
-    for (let i = 0; i < interpretations.length; i++) {
-        interpretations[i] = interpretations[i].result.trim()
-    }
-
-    let unique_interpretations = interpretations.filter((value, index, self) => self.indexOf(value) == index)
-
-    let title_votes = []
-    for (let unique of unique_interpretations) {
-        // count how many times a given interpretation is in the array
-        let votes = interpretations.filter(interpretation => interpretation === unique).length
-        title_votes.push({
-            "title": unique,
-            "votes": votes
-        })
-    }
-
-    // sort titles by vote
-    title_votes.sort((a, b) => b.votes - a.votes)
-    for (let [index, title] of title_votes.entries()) {
-        console.log(title.title + ": " + title.votes)
-        if (index > 10) break
-    }
-
-    // get picture where the filename is included
-    const file_basename = file_name.slice(0, -4)
-    const picture = await Picture.find(
-        {
-            "path": {
-                "$regex": file_basename + ".png",
-                "$options": "i"
-            }
-        }
-    )
-
-    if (picture.length > 0) {
-        for (let [index, title] of title_votes.entries()) {
-            if (index >= 10) break
-            if (model === "baseline")
-                try{
-                    picture[0].baseline_titles.push(title)
-                } catch(err){
-                    console.log(err)
-                }
-            else
-                picture[0].seq2seq_titles.push(title)
-            await picture[0].save()
-        }
-    }
-    */
 }
 
 

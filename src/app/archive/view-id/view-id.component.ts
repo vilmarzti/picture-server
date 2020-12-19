@@ -12,54 +12,60 @@ export class ViewIdComponent implements OnInit, OnDestroy {
   public first_url = "/archiv";
   public base_url = "/archiv";
   public picture: Picture;
+  public recent_votes: { title: string, votes: number, date: string }[] = []
   private _id: number = NaN;
   private _interval;
 
   constructor(
     private pictureService: PictureService,
     private route: ActivatedRoute,
-    private router: Router 
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.pictureService.random = false;
 
     // enable live update
-    this._interval = setInterval(() => {
-      if(!isNaN(this._id) && this.picture){
-        this.pictureService.getPicture(this._id).subscribe(
-          picture => {
-            this.picture.titles = picture.titles;
-            this.picture.baseline_titles = picture.baseline_titles;
-            this.picture.seq2seq_titles = picture.seq2seq_titles;
-          },
-          error => {
-            console.log('Error while reloading titles');
-          }
-        )
-      }
-     },
-     5000
-    );
+    this._interval = setInterval(() => { this.updateVotes() }, 5000);
 
     // get id from route paramater and load the corresponding picture
     this.route.params.subscribe(params => {
-      this._id = +params['id']
-      this.pictureService.currentId = this._id
-      this.pictureService.getPicture(this._id).subscribe(
-      picture =>{
-        this.picture = picture;
-      },
-      error =>{
-        console.log(error);
-        this.router.navigate(['/general', 'missing'])
-      });
+      this._id = +params['id'];
+      this.pictureService.currentId = this._id;
+      this.updateVotes();
     });
   }
 
-  ngOnDestroy(){
-    if(this._interval){
+  ngOnDestroy() {
+    if (this._interval) {
       clearInterval(this._interval);
+    }
+  }
+
+  private updateVotes() {
+    if (!isNaN(this._id)) {
+      this.pictureService.getPicture(this._id).subscribe(
+        picture => {
+          this.picture = picture
+
+          this.picture.titles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+          this.recent_votes = this.picture.titles.slice(0, 2);
+
+          this.picture.titles.sort((a, b) => b.votes - a.votes);
+
+
+          this.picture.baseline_titles = picture.baseline_titles;
+          this.picture.baseline_titles.sort((a, b) => b.votes - a.votes);
+
+          this.picture.seq2seq_titles = picture.seq2seq_titles;
+          this.picture.seq2seq_titles.sort((a, b) => b.votes - a.votes);
+        },
+        error => {
+          console.log(error);
+          console.log('Error while reloading titles');
+          this.router.navigate(['/general', 'missing'])
+        }
+      )
     }
   }
 }

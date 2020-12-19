@@ -4,12 +4,13 @@
         Your browser does not support canvas element.
     </canvas>
 </div>
-{{result}}
 <div *ngFor="let model of model_list">
     <a [routerLink]="['/draw', model]">{{model}}</a>
 </div>
 <button (click)="submit()">Submit</button>
 <button (click)="clearCanvas()">Clear</button>
 <div>
-    Result: {{result}}
+    <div *ngFor="let elem of result">
+        {{elem[0]}}
+    </div>
 </div>

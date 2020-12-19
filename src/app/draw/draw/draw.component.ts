@@ -16,7 +16,7 @@ export class DrawComponent implements OnInit{
   private history: History;
   
   public model_list = [];
-  public result = '';
+  public result: [string, number][] = [];
   public clear = 0;
  
   private httpOptions = {
@@ -48,7 +48,8 @@ export class DrawComponent implements OnInit{
     this.history = {
       wholeword_segments: '',
       word_ascii: '',
-      word_stroke: []
+      word_stroke: [],
+      num_interpretations: 5
     }
 
     // setup list of possible models
@@ -71,7 +72,13 @@ export class DrawComponent implements OnInit{
     console.log(this.history);
     this.http.post(model_url.toString(), this.history, this.httpOptions).subscribe(
       data =>{
+        let list: [string, number][] = []
         this.result = data['result'];
+        for(let elem in data){
+          list.push([elem, data[elem]]);
+        }
+        list.sort((a, b) => b[1] - a[1]);
+        this.result = list;
       },
       err => {
         console.log(err);
@@ -83,6 +90,6 @@ export class DrawComponent implements OnInit{
     // trigger directive
     this.clear += 1; 
     this.history.word_stroke = [];
-    this.result = "";
+    this.result = [];
   }
 }
