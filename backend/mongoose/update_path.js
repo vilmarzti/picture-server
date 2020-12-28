@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 const mongoose = require('mongoose')
-const mongoOptions = require('./mongoose_options')
-const pictureSchema = require('./schema')
+const mongoOptions = require('../utils/mongoose_options')
+const pictureSchema = require('./utils/schema')
 
 const Picture = mongoose.model('Picture', pictureSchema)
 
