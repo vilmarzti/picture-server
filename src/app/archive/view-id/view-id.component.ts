@@ -51,7 +51,12 @@ export class ViewIdComponent implements OnInit, OnDestroy {
           this.picture.titles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
           this.recent_votes = this.picture.titles.slice(0, 2);
 
-          this.picture.titles.sort((a, b) => b.votes - a.votes);
+          this.picture.titles.sort((a, b) => {
+            if(b.votes === a.votes) 
+              return new Date(b.date).getTime() - new Date(a.date).getTime();
+            else
+              return b.votes - a.votes
+          });
 
 
           this.picture.baseline_titles = picture.baseline_titles;
