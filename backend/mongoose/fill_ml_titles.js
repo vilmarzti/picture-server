@@ -3,8 +3,8 @@ const path = require('path')
 const http = require('http')
 const Promise = require('bluebird')
 const mongoose = require('mongoose')
-const mongoOptions = require('./mongoose_options')
-const pictureSchema = require('./schema')
+const mongoOptions = require('../utils/mongoose_options')
+const pictureSchema = require('../utils/schema')
 const { createSVGWindow } = require('svgdom')
 
 

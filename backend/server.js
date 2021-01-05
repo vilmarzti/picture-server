@@ -3,8 +3,8 @@ const cors          = require('cors')
 const express       = require('express')
 const mongoose      = require('mongoose')
 const bodyParser    = require('body-parser')
-const mongoOptions  = require('./mongoose_options')
-const pictureSchema = require('./schema')
+const mongoOptions  = require('./utils/mongoose_options')
+const pictureSchema = require('./utils/schema')
 
 const port = process.env.port || 8000
 
