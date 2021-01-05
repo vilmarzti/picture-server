@@ -36,6 +36,7 @@
     "svg.js": "^2.7.1",
     "svgdom": "^0.1.8",
     "tslib": "^2.0.0",
+    "web-animations-js": "^2.3.2",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
