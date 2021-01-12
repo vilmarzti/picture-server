@@ -1,16 +1,18 @@
-<div>
-    <canvas appCanvasDraw [clear]="clear" (newStrokeEvent)="newStroke($event)" id="canvas" width="600" height="300"
-        style="border:solid black 1px;">
-        Your browser does not support canvas element.
-    </canvas>
-</div>
-<div *ngFor="let model of model_list">
-    <a [routerLink]="['/draw', model]">{{model}}</a>
-</div>
-<button (click)="submit()">Submit</button>
-<button (click)="clearCanvas()">Clear</button>
-<div>
-    <div *ngFor="let elem of result">
-        {{elem[0]}}
+<div class="outer-wrap">
+    <div>
+        <canvas appCanvasDraw [clear]="clear" (newStrokeEvent)="newStroke($event)" id="canvas" width="600" height="300"
+            style="border:solid black 1px;">
+            Your browser does not support canvas element.
+        </canvas>
+    </div>
+    <div *ngFor="let model of model_list">
+        <a [routerLink]="['/draw', model]">{{model}}</a>
+    </div>
+    <button (click)="submit()">Submit</button>
+    <button (click)="clearCanvas()">Clear</button>
+    <div>
+        <div *ngFor="let elem of result">
+            {{elem[0]}}
+        </div>
     </div>
 </div>
