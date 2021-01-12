@@ -39,5 +39,5 @@
     </div>
 </div>
 <div class="background">
-    <img *ngFor="let p of backgroundPictures" [src]="p.url" #backgroundImage>
+    <img *ngFor="let p of backgroundPictures" [src]="p.url" [style.height.px]="imageHeight" #backgroundImage>
 </div>

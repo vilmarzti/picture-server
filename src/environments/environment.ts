@@ -5,7 +5,7 @@ import { common } from './environment.common'
 
 export const environment = {
   production: false,
-  backend_url: "http:localhost",
+  backend_url: "http://192.168.0.10",
   ...common
 };
 

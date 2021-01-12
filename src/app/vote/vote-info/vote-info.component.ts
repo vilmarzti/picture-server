@@ -18,6 +18,7 @@ export class VoteInfoComponent implements OnInit, AfterViewInit {
   public starting_id: number = 0;
   public backgroundPictures: Picture[] = [];
   public _backgroundImagesInit: boolean = true;
+  public imageHeight;
   private _pictures: Picture[] = [];
 
   private _imageHeight = 597.0;
@@ -57,10 +58,6 @@ export class VoteInfoComponent implements OnInit, AfterViewInit {
     let html = document.documentElement
     let body = document.body;
 
-    // get the image height and width
-    let imageWidth = this._backgroundImages.first.nativeElement.width;
-    let imageHeight = (imageWidth / this._imageWidth) * this._imageHeight;
-
     // remove all background pictures
     setTimeout(() => {this.backgroundPictures = []});
 
@@ -68,6 +65,15 @@ export class VoteInfoComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       let screenHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
       let screenWidth = Math.max(body.scrollWidth, body.offsetWidth, html.clientWidth, html.scrollWidth, html.offsetWidth);
+
+      // get the image height and width
+      let imageWidth = 0;
+      if (screenWidth > 1200) imageWidth = screenWidth / 10
+      else imageWidth = screenWidth / 5
+
+      let imageHeight = (imageWidth / this._imageWidth) * this._imageHeight;
+      this.imageHeight = imageHeight;
+
 
       let numWidth = Math.round(screenWidth / imageWidth);
       let numHeight = Math.ceil(screenHeight / imageHeight);
