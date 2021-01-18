@@ -18,7 +18,7 @@
             Frage: Betreibt die Maschine Bildbetrachtung?
         </div>
 
-        <div class="link-container">
+        <div class="link-container text">
             <div *ngIf="!isNaN(continue_id); else startSurvey">
                 <a [routerLink]="[base_url, continue_id]">Continue</a>
             </div>

@@ -4,7 +4,10 @@
         <img *ngIf="picture" [src]="picture.url">
         <app-position></app-position>
         <form (submit)="vote()">
-            <input [(ngModel)]="title" type="text" class="title" name="title">
+            <div class="input-container">
+                <input [(ngModel)]="title" type="text" class="title" name="title">
+                <mat-icon>info_outline</mat-icon>
+            </div>
             <input type="submit" value="senden">
         </form>
         <a [routerLink]="['/vote', 'info']">Info</a>
