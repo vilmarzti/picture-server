@@ -1,5 +1,4 @@
-import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { timeout } from 'rxjs/operators';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Picture } from 'src/app/shared/picture';
 import { PictureService } from 'src/app/shared/picture.service';
 
@@ -9,7 +8,6 @@ import { PictureService } from 'src/app/shared/picture.service';
   styleUrls: ['./vote-info.component.scss']
 })
 export class VoteInfoComponent implements OnInit, AfterViewInit {
-
   @ViewChildren('backgroundImage') private _backgroundImages: QueryList<ElementRef>
 
   public isNaN = isNaN;

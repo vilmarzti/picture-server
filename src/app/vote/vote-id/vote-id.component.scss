@@ -37,6 +37,7 @@ mat-icon:hover{
 .img_input app-position{
     text-align: center;
     margin-bottom: 20px;
+    margin-top: 15px;
 }
 
 .img_input form{
@@ -53,4 +54,24 @@ mat-icon:hover{
 .img_input form input[type=submit]{
     max-width: 300px;
     margin: auto;
+}
+
+.text-container {
+    background-color: white;
+    width: 75%;
+    margin: auto;
+    padding: 10px 15px 20px 15px;
+}
+
+.text-container .icon-container{
+    display: flex;
+    justify-content: right;
+}
+
+.text-container .icon-container mat-icon{
+    right: 20px;
+}
+
+.text-container .text{
+    padding: 0px 40px 15px 20px;
 }

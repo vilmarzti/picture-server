@@ -6,7 +6,7 @@
         <form (submit)="vote()">
             <div class="input-container">
                 <input [(ngModel)]="title" type="text" class="title" name="title">
-                <mat-icon>info_outline</mat-icon>
+                <mat-icon (click)="toggleInfoByClick()" [appInfoPopup]="info">info_outline</mat-icon>
             </div>
             <input type="submit" value="senden">
         </form>
@@ -16,3 +16,23 @@
         <app-next-button [base_url]="base_url" [last_url]="'/vote/bye'"></app-next-button>
     </div>
 </div>
+
+<ng-template #info>
+    <div class="text-container">
+        <div class="icon-container">
+            <mat-icon (click)="removeInfoByClick()">close</mat-icon>
+        </div>
+        <div class="text">
+            Wir befragen mit dieser Umfrage zuerst den Menschen:
+            <br><br>
+            Was siehst du in den Bildern? Kannst du das Geschriebene noch lesen? Oder siehst du bereits abstrakte
+            Objekte,
+            Handlungen oder Menschen?
+            <br><br>
+            Beschreibe deine Assoziationen im Eingabefeld und klicke «senden» um zum nächsten Bild zu gelangen.
+            Mit den Pfeiltasten kannst du einzelne Bilder überspringen.
+            <br><br>
+            Du kannst die Umfrage jederzeit abbrechen, ohne dass deine bisherigen Interpretationen gelöscht werden.
+        </div>
+    </div>
+</ng-template>

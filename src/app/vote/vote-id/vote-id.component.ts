@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Picture } from '../../shared/picture';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PictureService } from '../../shared/picture.service';
@@ -9,6 +9,8 @@ import { PictureService } from '../../shared/picture.service';
   styleUrls: ['./vote-id.component.scss']
 })
 export class VoteIdComponent implements OnInit {
+  @Output() infoButtonClicked = new EventEmitter<void>();
+  @Output() closeButtonClicked = new EventEmitter<void>();
 
   constructor(
     private route: ActivatedRoute,
@@ -22,7 +24,6 @@ export class VoteIdComponent implements OnInit {
   public base_url = "/vote"
   public checkBoxFlag = false;
   private _nextId = 0;
-  private _interval
 
   ngOnInit(): void {
     this.pictureService.random = true;
@@ -70,6 +71,14 @@ export class VoteIdComponent implements OnInit {
         }
       );
     }
+  }
+
+  toggleInfoByClick(): void {
+    this.infoButtonClicked.emit();
+  }
+
+  removeInfoByClick(): void {
+    this.closeButtonClicked.emit();
   }
 
 }

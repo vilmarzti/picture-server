@@ -9,6 +9,8 @@ import { VoteInfoComponent } from './vote-info/vote-info.component';
 import { VoteByeComponent } from './vote-bye/vote-bye.component';
 import { SharedModule } from '../shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
+import { InfoPopupDirective } from './vote-id/info-popup.directive';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 
 
@@ -16,7 +18,8 @@ import { MatIconModule } from '@angular/material/icon';
   declarations: [
     VoteIdComponent,
     VoteInfoComponent,
-    VoteByeComponent
+    VoteByeComponent,
+    InfoPopupDirective
   ],
   imports: [
     CommonModule,
@@ -25,7 +28,8 @@ import { MatIconModule } from '@angular/material/icon';
     HttpClientModule,
     RouterModule,
     SharedModule,
-    MatIconModule
+    MatIconModule,
+    OverlayModule
   ]
 })
 export class VoteModule { }
