@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { VoteInfoComponent } from './vote-info/vote-info.component';
 import { VoteByeComponent } from './vote-bye/vote-bye.component';
 import { SharedModule } from '../shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,7 +16,6 @@ import { OverlayModule } from '@angular/cdk/overlay';
 @NgModule({
   declarations: [
     VoteIdComponent,
-    VoteInfoComponent,
     VoteByeComponent,
     InfoPopupDirective
   ],

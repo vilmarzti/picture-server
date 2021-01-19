@@ -7,7 +7,6 @@ import { HomeComponent } from './general/home/home.component';
 import { MissingIdComponent } from './general/missing-id/missing-id.component';
 import { VoteByeComponent } from './vote/vote-bye/vote-bye.component';
 import { VoteIdComponent } from './vote/vote-id/vote-id.component';
-import { VoteInfoComponent } from './vote/vote-info/vote-info.component';
 import { MoreComponent } from './more/more/more.component';
 
 const routes: Routes = [
@@ -16,16 +15,12 @@ const routes: Routes = [
     component: VoteByeComponent
   },
   {
-    path: 'vote/info',
-    component: VoteInfoComponent
-  },
-  {
     path: 'vote/:id',
     component: VoteIdComponent
   },
   {
     path: 'vote', 
-    redirectTo: 'vote/info',
+    redirectTo: '',
     pathMatch: 'full'
   },
   {
@@ -54,7 +49,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: VoteInfoComponent 
+    component: HomeComponent 
   },
   {
     path: '**',

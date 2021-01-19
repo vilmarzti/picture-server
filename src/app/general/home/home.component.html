@@ -1,9 +1,43 @@
-<div>
-    <a routerLink="/archiv">Archiv</a>
+<div class="container">
+    <div class="text-container">
+        <div class="title">
+            Vielen Dank, nimmst du an meinem Bachelorprojekt teil!
+        </div>
+
+        <div class="text">
+            Im Rahmen des Diplomprojekts des Bachelor Art Education der ZHdK befragen wir Olivia Büchel und Martin
+            Villavicencio den Prozess der Bildbetrachtung. Diese Website zeigt eine Umfrage mit 48 Schriftzeichen, die
+            aus handgeschriebenen Texten entnommen wurden und auf weissem Hintergrund zur Interpretation präsentiert
+            werden.<br>
+            Was siehst du in den Bildern? Kannst du das Geschriebene noch lesen? Oder siehst du bereits abstrakte
+            Objekte, Handlungen oder Menschen? Beschreibe deine Assoziationen im Eingabefeld und nimm so am
+            Bachelorprojekt teil.<br>
+            Im Archiv steht deine und die Bildentschlüsselung anderer Probanden einer Maschine gegenüber. Ein von Martin
+            Villavicencio entwickeltes Deep-Wiritig-Programm kann die Textfragmente basierend auf künstlicher
+            Intelligenz in digitale Schrift umwandeln. Im Vergleich mit der menschlichen Interpretation eröffnet sich
+            Frage: Betreibt die Maschine Bildbetrachtung?
+        </div>
+
+        <div class="link-container text">
+            <div *ngIf="!isNaN(continue_id); else startSurvey">
+                <a [routerLink]="[base_url, continue_id]">Weiter</a>
+            </div>
+
+            <ng-template #startSurvey>
+                <div>
+                    <a [routerLink]="[base_url, starting_id]">Umfrage</a>
+                </div>
+            </ng-template>
+
+            <div class="archiv-link">
+                <a routerLink="/archiv">Archiv</a>
+            </div>
+            <div class="more-link">
+                <a routerLink="/more">Mehr</a>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a routerLink="/vote">Umfrage</a>
-</div>
-<div>
-    <a routerLink="/draw">Draw</a>
+<div class="background">
+    <img *ngFor="let p of backgroundPictures" [src]="p.url" [style.height.px]="imageHeight" #backgroundImage>
 </div>

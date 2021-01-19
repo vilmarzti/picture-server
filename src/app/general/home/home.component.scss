@@ -1,0 +1,41 @@
+@import "../../../styles.scss";
+
+.container{
+    top: 20%;
+    left: 50%;
+    position: absolute;
+}
+
+.text-container{
+    max-width:720px;
+    position: relative;
+    left: -50%;
+    background-color: white;
+    padding: 20px 30px 20px 30px;
+    margin-bottom: 40px;
+}
+
+.link-container{
+    margin-top: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 18px;
+}
+
+.background{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.background img{
+    width: 10%;
+    height: auto;
+    display:block;
+}
+
+@media only screen and (max-width: 1200px){
+    .background img{
+        width: 20%;
+    }
+}
