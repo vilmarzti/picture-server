@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
-import { History } from '../history';
-import { Stroke } from '../stroke';
+import { History } from './history';
+import { Stroke } from './stroke';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-draw',

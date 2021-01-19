@@ -1,6 +1,7 @@
 import { Directive, ElementRef, HostListener, Output, EventEmitter, Input, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
-import { Stroke } from './stroke';
 import { AppTouchEvent } from './app-touch-event';
+import { Stroke } from './stroke';
+
 
 @Directive({
   selector: '[appCanvasDraw]'

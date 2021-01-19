@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { VoteModule } from './vote/vote.module';
 import { ArchiveModule } from './archive/archive.module';
 import { GeneralModule } from './general/general.module';
-import { DrawModule } from './draw/draw.module';
+import { MoreModule } from './more/more.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { DrawModule } from './draw/draw.module';
     VoteModule,
     ArchiveModule,
     GeneralModule,
-    DrawModule
+    MoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
