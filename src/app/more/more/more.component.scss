@@ -1,7 +1,12 @@
+:host {
+    display:flex;
+    justify-content: space-around;
+    height: 100vh;
+}
+
 .container{
     width: 70%;
     margin: auto;
-    margin-top: 50px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -11,7 +16,6 @@
 .link-container{
     width: 300px;
     height: 280px;
-    margin-top: 50px;
     position: relative;
 }
 
