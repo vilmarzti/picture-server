@@ -1,0 +1,32 @@
+.container{
+    width: 70%;
+    margin: auto;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.link-container{
+    width: 300px;
+    height: 280px;
+    margin-top: 50px;
+    position: relative;
+}
+
+.link-container:hover{
+    cursor: pointer;
+    color: #0000EE;
+}
+
+.link-container img{
+    width: 300px;
+}
+
+.link-container .text{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+}
