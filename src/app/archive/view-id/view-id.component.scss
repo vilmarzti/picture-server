@@ -11,7 +11,8 @@
 }
 
 .body {
-    width:100%
+    width:100%;
+    margin-top: 50px;
 }
 
 .titles{
@@ -19,6 +20,7 @@
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
+    margin-top: 30px;
 }
 
 .titles > *{
