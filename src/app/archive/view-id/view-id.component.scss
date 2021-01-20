@@ -20,18 +20,17 @@
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
-    margin-top: 30px;
 }
 
 .titles > *{
-    max-width: 300px;
-    min-width: 160px;
+    width: 300px;
+    margin-top: 30px;
 }
 
 .headline {
     font-weight:bold;
     font-family: Lato;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .archive-link{

@@ -6,11 +6,12 @@ import { RouterModule } from '@angular/router';
 import { PrevButtonComponent } from './prev-button/prev-button.component';
 import { PositionComponent } from './position/position.component';
 import { MatIconModule } from '@angular/material/icon';
+import { ShareButtonComponent } from './share-button/share-button.component';
 
 
 
 @NgModule({
-  declarations: [NextButtonComponent, PrevButtonComponent, PositionComponent],
+  declarations: [NextButtonComponent, PrevButtonComponent, PositionComponent, ShareButtonComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -20,7 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
   exports: [
     NextButtonComponent,
     PrevButtonComponent,
-    PositionComponent
+    PositionComponent,
+    ShareButtonComponent
   ]
 })
 export class SharedModule { }
