@@ -1,15 +1,28 @@
 <div class="outer-wrap">
+    <div class="title">
+        Test: Kann das Deep-Reading-Programm deine schrift lesen?
+    </div>
+    <div class="text">
+        Schreibe in das untere Feld und lasse es von einem der Deep-Learning-Modelle analysieren.
+    </div>
     <div>
         <canvas appCanvasDraw [clear]="clear" (newStrokeEvent)="newStroke($event)" id="canvas" width="600" height="300"
             style="border:solid black 1px;">
             Your browser does not support canvas element.
         </canvas>
     </div>
-    <div *ngFor="let model of model_list">
-        <a [routerLink]="['/draw', model]">{{model}}</a>
+    <div class="buttons">
+        <button (click)="submit()">Analysieren</button>
+        <button (click)="clearCanvas()">Eingabe löschen</button>
     </div>
-    <button (click)="submit()">Submit</button>
-    <button (click)="clearCanvas()">Clear</button>
+    <div class="selection">
+        <div class="text">
+            Wähle ein Deep-Learning-Model:
+        </div>
+        <div *ngFor="let model of model_list">
+            <a [routerLink]="['/more/draw', model[0]]">{{model[1]}}</a>
+        </div>
+    </div>
     <div>
         <div *ngFor="let elem of result">
             {{elem[0]}}

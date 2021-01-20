@@ -24,7 +24,7 @@ export class CanvasDrawDirective implements AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit(): void {
-    this.offset = [this._el.nativeElement.offsetLeft, this._el.nativeElement.offsetTop]
+    this.offset = [(this._el.nativeElement.offsetParent as HTMLElement).offsetLeft, this._el.nativeElement.offsetTop]
   }
 
   ngOnChanges(changes: SimpleChanges) {

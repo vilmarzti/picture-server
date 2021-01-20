@@ -13,13 +13,13 @@
             ],
             "type": "pwa-node"
         },
-    {
-        "name": "Launch Chrome",
-        "request": "launch",
-        "type": "pwa-chrome",
-        "url": "http://localhost:4200",
-        "webRoot": "${workspaceFolder}"
-    },
+        {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://localhost:4200",
+            "webRoot": "${workspaceFolder}"
+        },
         {
             "type": "node",
             "request": "launch",
@@ -29,14 +29,13 @@
             ],
             "program": "${workspaceFolder}/backend/update_path.js",
             "args": [
-                "data/gesten", 
+                "data/gesten",
                 "test/"
             ]
         },
         {
             "type": "firefox",
-            "request": "launch",
-            "reAttach": true,
+            "request": "attach",
             "name": "Launch localhost",
             "url": "http://localhost:4200",
             "webRoot": "${workspaceFolder}"

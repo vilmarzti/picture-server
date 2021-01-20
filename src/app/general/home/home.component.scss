@@ -23,6 +23,16 @@
     font-size: 18px;
 }
 
+.link-container > * {
+    width: 100px;
+}
+
+.link-container > * > a {
+    width: 100%;
+    display:block;
+    text-align: center;
+}
+
 .background{
     display: flex;
     flex-wrap: wrap;
