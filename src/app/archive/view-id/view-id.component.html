@@ -1,7 +1,6 @@
 <div class="container">
     <div class="side-container left">
         <app-prev-button [base_url]="base_url"></app-prev-button>
-        <app-share-button></app-share-button>
     </div>
     <div *ngIf="picture" class="body">
         <img [src]="picture.url" width="300">
@@ -38,4 +37,7 @@
     <div class="side-container right">
         <app-next-button [base_url]="base_url"></app-next-button>
     </div>
+</div>
+<div class="share-button">
+    <app-share-button></app-share-button>
 </div>

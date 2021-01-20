@@ -11,7 +11,7 @@
 }
 
 .body {
-    width:100%;
+    width: 80%;
     margin-top: 50px;
 }
 
@@ -54,4 +54,10 @@
 img{
     display:block;
     margin:auto;
+}
+
+.share-button{
+    position:fixed;
+    top: 50px;
+    right: 50px;
 }
