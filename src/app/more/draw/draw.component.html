@@ -23,7 +23,8 @@
             <a [routerLink]="['/more/draw', model[0]]">{{model[1]}}</a>
         </div>
     </div>
-    <div>
+    <div class="results">
+        <div class="text" *ngIf="result.length!=0">Ergebnisse: </div>
         <div *ngFor="let elem of result">
             {{elem[0]}}
         </div>

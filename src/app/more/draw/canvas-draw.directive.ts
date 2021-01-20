@@ -33,6 +33,10 @@ export class CanvasDrawDirective implements AfterViewInit, OnChanges {
     }
   }
 
+  @HostListener('window:resize', ['$event']) onResize(event){
+    this.offset = [(this._el.nativeElement.offsetParent as HTMLElement).offsetLeft, this._el.nativeElement.offsetTop]
+  }
+
   @HostListener('mousedown', ['$event']) mouseDown(event: MouseEvent) {
     this.ismousedown = true;
     let touchEvent = this.mouseToTouch(event);
