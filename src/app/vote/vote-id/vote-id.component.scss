@@ -16,8 +16,11 @@
 }
 
 mat-icon{
-    font-size: 30px;
     margin-left: 10px;
+}
+
+mat-icon:hover{
+    color: rgba(0, 0, 0, 0.3);
 }
 
 mat-icon:hover{
@@ -74,4 +77,12 @@ mat-icon:hover{
 
 .text-container .text{
     padding: 0px 40px 15px 20px;
+}
+
+.input-container app-share-button{
+    padding-left: 8px;
+}
+
+.input-container input{
+    width: 350px;
 }

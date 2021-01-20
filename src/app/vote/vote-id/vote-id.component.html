@@ -7,6 +7,7 @@
             <div class="input-container">
                 <input [(ngModel)]="title" type="text" class="title" name="title">
                 <mat-icon (click)="toggleInfoByClick()" [appInfoPopup]="info">info_outline</mat-icon>
+                <app-share-button></app-share-button>
             </div>
             <input type="submit" value="senden">
         </form>
