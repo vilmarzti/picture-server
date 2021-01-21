@@ -11,23 +11,27 @@
             Your browser does not support canvas element.
         </canvas>
     </div>
+    <div class="share-container">
+        <app-share-button></app-share-button>
+    </div>
     <div class="buttons">
         <button (click)="submit()">Analysieren</button>
         <button (click)="clearCanvas()">Eingabe löschen</button>
     </div>
-    <div class="selection">
-        <div class="text">
-            Wähle ein Deep-Learning-Model:
+    <div class="container">
+        <div class="selection">
+            <div class="text">
+                Wähle ein Deep-Learning-Model:
+            </div>
+            <div *ngFor="let model of model_list">
+                <a [routerLink]="['/more/draw', model[0]]">{{model[1]}}</a>
+            </div>
         </div>
-        <div *ngFor="let model of model_list">
-            <a [routerLink]="['/more/draw', model[0]]">{{model[1]}}</a>
+        <div class="results" *ngIf="result.length!=0">
+            <div class="text">Ergebnisse: </div>
+            <div *ngFor="let elem of result">
+                {{elem[0]}}
+            </div>
         </div>
     </div>
-    <div class="results">
-        <div class="text" *ngIf="result.length!=0">Ergebnisse: </div>
-        <div *ngFor="let elem of result">
-            {{elem[0]}}
-        </div>
-    </div>
-    <div class="test" width="20px" height="600px"></div>
 </div>

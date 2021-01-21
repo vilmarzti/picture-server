@@ -1,11 +1,4 @@
 .outer-wrap{
-    /*
-    position:fixed;
-    width: 600px;
-    left: 50%;
-    margin-left: -300px;
-    */
-
     width: 80%;
     margin:auto;
 }
@@ -37,4 +30,22 @@ canvas{
 .test{
     width: 20px;
     height: 600px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-top: 25px;
+}
+
+.share-container {
+    display:flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.share-container app-share-button{
+    margin: auto;
 }

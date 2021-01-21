@@ -4,6 +4,7 @@ import { DrawComponent } from './draw/draw.component';
 import { CanvasDrawDirective } from './draw/canvas-draw.directive';
 import { RouterModule } from '@angular/router';
 import { MoreComponent } from './more/more.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -11,7 +12,8 @@ import { MoreComponent } from './more/more.component';
   declarations: [DrawComponent, CanvasDrawDirective, MoreComponent],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    SharedModule
   ]
 })
 export class MoreModule { }
