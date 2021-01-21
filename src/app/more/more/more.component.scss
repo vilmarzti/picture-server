@@ -11,12 +11,15 @@
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
+    padding-top: 50px;
+    padding-bottom: 60px;
 }
 
 .link-container{
     width: 300px;
-    height: 280px;
+    height: 260px;
     position: relative;
+    padding-top: 60px;
 }
 
 .link-container:hover{
@@ -35,4 +38,14 @@
     width: 100%;
     text-align: center;
     color:black;
+}
+
+.share-container{
+    width: 100%;
+    display: flex;
+    padding-top: 24px;
+}
+
+.share-container app-share-button{
+    margin:auto
 }
