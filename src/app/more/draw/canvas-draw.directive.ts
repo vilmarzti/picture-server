@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Output, EventEmitter, Input, AfterViewInit, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import { Directive, ElementRef, HostListener, Output, EventEmitter, AfterViewInit, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { AppTouchEvent } from './app-touch-event';
 import { Stroke } from './stroke';
 
@@ -8,13 +8,12 @@ import { Stroke } from './stroke';
 })
 export class CanvasDrawDirective implements AfterViewInit, OnChanges, OnInit {
   @Output() newStrokeEvent = new EventEmitter<Stroke>();
-  @Input() clear: number;
+  @Output() clear = new EventEmitter<any>();
 
   public offset: [number, number] = [0, 0];
   private ismousedown = false;
   private touchStartPos: [number, number]
   private ctx: CanvasRenderingContext2D;
-  private parent: HTMLElement;
   private _el: ElementRef<HTMLCanvasElement>;
 
   constructor(
@@ -24,7 +23,7 @@ export class CanvasDrawDirective implements AfterViewInit, OnChanges, OnInit {
     this._el = el;
   }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.ctx.canvas.width = this._el.nativeElement.clientWidth;
     this.ctx.canvas.height = this._el.nativeElement.clientHeight;
   }
@@ -39,15 +38,16 @@ export class CanvasDrawDirective implements AfterViewInit, OnChanges, OnInit {
     }
   }
 
-  @HostListener('window:resize', ['$event']) onResize(event){
+  @HostListener('window:resize', ['$event']) onResize(event) {
     this.updateOffset()
-    if(this.ctx.canvas.width !== this._el.nativeElement.clientWidth){
+    if (this.ctx.canvas.width !== this._el.nativeElement.clientWidth) {
+      this.clear.emit(null);
       this.ctx.canvas.width = this._el.nativeElement.clientWidth;
       this.ctx.canvas.height = this._el.nativeElement.clientWidth;
     }
   }
 
-  @HostListener('document:scroll', ['$event']) onScroll(event){
+  @HostListener('document:scroll', ['$event']) onScroll(event) {
     this.updateOffset()
   }
 
@@ -72,7 +72,7 @@ export class CanvasDrawDirective implements AfterViewInit, OnChanges, OnInit {
   }
 
   @HostListener('touchstart', ['$event']) touchStart(event: TouchEvent | AppTouchEvent) {
-    if(event instanceof Event){
+    if (event instanceof Event) {
       event.preventDefault();
     }
     let x = event.touches[0].clientX - this.offset[0];
@@ -154,7 +154,7 @@ export class CanvasDrawDirective implements AfterViewInit, OnChanges, OnInit {
     return touchEvent
   }
 
-  private updateOffset(){
+  private updateOffset() {
     this.offset = [this._el.nativeElement.offsetLeft, this._el.nativeElement.offsetTop - window.scrollY]
   }
 

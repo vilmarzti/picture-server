@@ -97,7 +97,6 @@ export class DrawComponent implements OnInit {
 
   public clearCanvas(): void {
     // trigger directive
-    this.clear += 1;
     this.history.word_stroke = [];
     this.result = [];
   }
