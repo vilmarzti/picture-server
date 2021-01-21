@@ -5,12 +5,31 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const mongoOptions = require('./utils/mongoose_options')
 const pictureSchema = require('./utils/schema')
-const { body } = require('express-validator');
+const { body } = require('express-validator')
+const fs = require('fs')
+const https = require('https')
+const http = require('http')
+
 
 const port = process.env.port || 8000
 
-const app = express()
 
+let certificate = undefined;
+let privateKey = undefined;
+let credentials = undefined;
+
+try {
+    certificate = fs.readFileSync('/etc/letsencrypt/live/olivia.li/fullchain.pem', 'utf-8');
+    privateKey = fs.readFileSync('/etc/letsencrypt/live/olivia.li/privkey.pem', 'utf-8');
+    credentials = {
+        key: privateKey,
+        cert: certificate
+    }
+}catch(error){
+
+}
+
+const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 
@@ -113,10 +132,14 @@ app.put('/info/:id',
 
 // connect to Mongoose and start server
 mongoose.connect(mongoOptions.db_path, mongoOptions.options).then(() => {
-    app.listen(
-        port,
-        () => {
-            console.log(`Express listening on ${port}`)
-        }
-    )
+    if(privateKey){
+        let httpsServer = https.createServer(credentials, app);
+        httpsServer.listen(port)
+        console.log('https-Server')
+    }
+    else{
+        let httpServer = http.createServer(app);
+        httpServer.listen(port)
+        console.log('http-Server')
+    }
 })
