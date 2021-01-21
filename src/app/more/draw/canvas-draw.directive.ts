@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Output, EventEmitter, Input, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, HostListener, Output, EventEmitter, Input, AfterViewInit, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { AppTouchEvent } from './app-touch-event';
 import { Stroke } from './stroke';
 
@@ -6,7 +6,7 @@ import { Stroke } from './stroke';
 @Directive({
   selector: '[appCanvasDraw]'
 })
-export class CanvasDrawDirective implements AfterViewInit, OnChanges {
+export class CanvasDrawDirective implements AfterViewInit, OnChanges, OnInit {
   @Output() newStrokeEvent = new EventEmitter<Stroke>();
   @Input() clear: number;
 
@@ -14,6 +14,7 @@ export class CanvasDrawDirective implements AfterViewInit, OnChanges {
   private ismousedown = false;
   private touchStartPos: [number, number]
   private ctx: CanvasRenderingContext2D;
+  private parent: HTMLElement;
   private _el: ElementRef<HTMLCanvasElement>;
 
   constructor(
@@ -23,8 +24,13 @@ export class CanvasDrawDirective implements AfterViewInit, OnChanges {
     this._el = el;
   }
 
+  ngOnInit(): void{
+    this.ctx.canvas.width = this._el.nativeElement.clientWidth;
+    this.ctx.canvas.height = this._el.nativeElement.clientHeight;
+  }
+
   ngAfterViewInit(): void {
-    this.offset = [(this._el.nativeElement.offsetParent as HTMLElement).offsetLeft, this._el.nativeElement.offsetTop]
+    this.updateOffset()
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -34,8 +40,17 @@ export class CanvasDrawDirective implements AfterViewInit, OnChanges {
   }
 
   @HostListener('window:resize', ['$event']) onResize(event){
-    this.offset = [(this._el.nativeElement.offsetParent as HTMLElement).offsetLeft, this._el.nativeElement.offsetTop]
+    this.updateOffset()
+    if(this.ctx.canvas.width !== this._el.nativeElement.clientWidth){
+      this.ctx.canvas.width = this._el.nativeElement.clientWidth;
+      this.ctx.canvas.height = this._el.nativeElement.clientWidth;
+    }
   }
+
+  @HostListener('document:scroll', ['$event']) onScroll(event){
+    this.updateOffset()
+  }
+
 
   @HostListener('mousedown', ['$event']) mouseDown(event: MouseEvent) {
     this.ismousedown = true;
@@ -57,6 +72,9 @@ export class CanvasDrawDirective implements AfterViewInit, OnChanges {
   }
 
   @HostListener('touchstart', ['$event']) touchStart(event: TouchEvent | AppTouchEvent) {
+    if(event instanceof Event){
+      event.preventDefault();
+    }
     let x = event.touches[0].clientX - this.offset[0];
     let y = event.touches[0].clientY - this.offset[1];
     this.touchStartPos = [x, y];
@@ -134,6 +152,10 @@ export class CanvasDrawDirective implements AfterViewInit, OnChanges {
       clientY: event.clientY
     }]);
     return touchEvent
+  }
+
+  private updateOffset(){
+    this.offset = [this._el.nativeElement.offsetLeft, this._el.nativeElement.offsetTop - window.scrollY]
   }
 
 }
