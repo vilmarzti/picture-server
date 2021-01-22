@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Event, NavigationStart, Router } from '@angular/router';
 import { History } from './history';
@@ -22,7 +22,9 @@ export class DrawComponent implements OnInit {
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-    })
+    }),
+    reportProgress: true,
+    observe: "events" as const
   }
 
   constructor(
@@ -78,19 +80,30 @@ export class DrawComponent implements OnInit {
     else {
       model_url = new URL("/seq2seq", environment.backend_url)
     }
-    console.log(this.history);
-    console.log(model_url)
+
+
     this.http.post(model_url.toString(), this.history, this.httpOptions).subscribe(
-      data => {
-        let list: [string, number][] = []
-        this.result = data['result'];
-        for (let elem in data) {
-          list.push([elem, data[elem]]);
+      (event) => {
+        if (event.type === HttpEventType.Sent) {
+          document.body.style.cursor = "wait";
         }
-        list.sort((a, b) => b[1] - a[1]);
-        this.result = list;
+
+        if (event.type === HttpEventType.Response) {
+          let data = event.body;
+
+          let list: [string, number][] = []
+          for (let elem in data) {
+            list.push([elem, data[elem]]);
+          }
+
+          list.sort((a, b) => b[1] - a[1]);
+          this.result = list;
+
+          document.body.style.cursor = "default";
+        }
       },
       err => {
+        document.body.style.cursor = "default";
         console.log(err);
       }
     )
