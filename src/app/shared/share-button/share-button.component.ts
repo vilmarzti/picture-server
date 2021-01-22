@@ -17,18 +17,19 @@ export class ShareButtonComponent implements OnInit {
   ) { }
 
   public onClick(event) {
+    let navigator = window.navigator;
     if (navigator.share) {
       navigator.share({
         title: "Ich sehe was, was du nicht siehst.",
-        url: this.url(),
+        url: this.url,
       })
-      alert(event);
       event.preventDefault();
     }
   }
 
   ngOnInit(): void {
     this.current_url = this.construWALink(this.router.url);
+    this.url = this.fullURL(this.router.url)
 
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
