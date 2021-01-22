@@ -7,8 +7,8 @@
             <div class="input-container">
                 <input [(ngModel)]="title" type="text" class="title" name="title">
                 <mat-icon (click)="toggleInfoByClick()" [appInfoPopup]="info">info_outline</mat-icon>
-                <app-share-button></app-share-button>
             </div>
+            <app-share-button></app-share-button>
             <input type="submit" value="senden">
         </form>
         <a [routerLink]="['']">Startseite</a>

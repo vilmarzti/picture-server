@@ -49,6 +49,12 @@ mat-icon:hover{
     max-width: 720px;
 }
 
+.img_input form input{
+    margin-bottom: 20px
+}
+.img_input form app-share-button{
+    margin: 0px auto 20px auto;
+}
 .img_input a{
     text-align: center;
     margin-top: 20px;
@@ -79,9 +85,7 @@ mat-icon:hover{
     padding: 0px 40px 15px 20px;
 }
 
-.input-container app-share-button{
-    padding-left: 8px;
-}
+
 
 .input-container input{
     width: 350px;
