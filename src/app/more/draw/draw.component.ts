@@ -73,12 +73,13 @@ export class DrawComponent implements OnInit {
   public submit() {
     let model_url = new URL(environment.backend_url);
     if (this.model === 'baseline') {
-      model_url.port = environment.model.baseline.port.toString();
+      model_url = new URL("/baseline", environment.backend_url)
     }
     else {
-      model_url.port = environment.model.seq2seq.port.toString();
+      model_url = new URL("/seq2seq", environment.backend_url)
     }
     console.log(this.history);
+    console.log(model_url)
     this.http.post(model_url.toString(), this.history, this.httpOptions).subscribe(
       data => {
         let list: [string, number][] = []
