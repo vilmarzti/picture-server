@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Output, EventEmitter, AfterViewInit, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import { Directive, ElementRef, HostListener, Output, EventEmitter, AfterViewInit, OnChanges, SimpleChanges, OnInit, Input } from '@angular/core';
 import { AppTouchEvent } from './app-touch-event';
 import { Stroke } from './stroke';
 
@@ -8,7 +8,8 @@ import { Stroke } from './stroke';
 })
 export class CanvasDrawDirective implements AfterViewInit, OnChanges, OnInit {
   @Output() newStrokeEvent = new EventEmitter<Stroke>();
-  @Output() clear = new EventEmitter<any>();
+  @Output() clear_history = new EventEmitter<any>();
+  @Input() clear_canvas: any;
 
   public offset: [number, number] = [0, 0];
   private ismousedown = false;
@@ -33,7 +34,7 @@ export class CanvasDrawDirective implements AfterViewInit, OnChanges, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.clear) {
+    if (changes.clear_canvas) {
       this.ctx.clearRect(0, 0, this._el.nativeElement.width, this._el.nativeElement.height);
     }
   }
@@ -41,7 +42,7 @@ export class CanvasDrawDirective implements AfterViewInit, OnChanges, OnInit {
   @HostListener('window:resize', ['$event']) onResize(event) {
     this.updateOffset()
     if (this.ctx.canvas.width !== this._el.nativeElement.clientWidth) {
-      this.clear.emit(null);
+      this.clear_history.emit(null);
       this.ctx.canvas.width = this._el.nativeElement.clientWidth;
       this.ctx.canvas.height = this._el.nativeElement.clientWidth;
     }

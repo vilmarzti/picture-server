@@ -17,7 +17,7 @@ export class DrawComponent implements OnInit {
 
   public model_list: [string, string][] = [];
   public result: [string, number][] = [];
-  public clear = 0;
+  public clear_canvas = 0;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -100,5 +100,6 @@ export class DrawComponent implements OnInit {
     // trigger directive
     this.history.word_stroke = [];
     this.result = [];
+    this.clear_canvas += 1;
   }
 }

@@ -1,12 +1,12 @@
 <div class="outer-wrap">
     <div class="title">
-        Test: Kann das Deep-Reading-Programm deine schrift lesen?
+        Test: Kann das Deep-Reading-Programm deine Schrift lesen?
     </div>
     <div class="text">
         Schreibe in das untere Feld und lasse es von einem der Deep-Learning-Modelle analysieren.
     </div>
     <div>
-        <canvas appCanvasDraw (clear)="clearCanvas()" (newStrokeEvent)="newStroke($event)" id="canvas"
+        <canvas appCanvasDraw [clear_canvas]="clear_canvas" (clear_history)="clearCanvas()" (newStrokeEvent)="newStroke($event)" id="canvas"
             style="border:solid black 1px;">
             Your browser does not support canvas element.
         </canvas>
