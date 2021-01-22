@@ -4,6 +4,9 @@
     </div>
     <div *ngIf="picture" class="body">
         <img [src]="picture.url" width="300">
+        <div class="share-container">
+            <app-share-button></app-share-button>
+        </div>
         <div class="titles">
             <div class="human-titles">
                 <div class="human-headline headline">
@@ -37,7 +40,4 @@
     <div class="side-container right">
         <app-next-button [base_url]="base_url"></app-next-button>
     </div>
-</div>
-<div class="share-button">
-    <app-share-button></app-share-button>
 </div>

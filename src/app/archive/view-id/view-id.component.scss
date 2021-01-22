@@ -56,8 +56,8 @@ img{
     margin:auto;
 }
 
-.share-button{
-    position:fixed;
-    top: 50px;
-    right: 50px;
+.share-container{
+    display:flex;
+    justify-content: space-around;
+    margin-top: 30px;
 }
