@@ -19,6 +19,7 @@ body{
     font-family: $text-font;
     font-size: 16px;
     text-align: justify;
+    hyphens: auto;
 }
 
 .cdk-overlay-backdrop:hover{

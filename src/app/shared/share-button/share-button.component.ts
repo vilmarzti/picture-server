@@ -20,7 +20,7 @@ export class ShareButtonComponent implements OnInit {
     let navigator = window.navigator;
     if (navigator.share) {
       navigator.share({
-        title: "Ich sehe was, was du nicht siehst.",
+        text: "Ich sehe was, was du nicht siehst.",
         url: this.url,
       })
       event.preventDefault();
