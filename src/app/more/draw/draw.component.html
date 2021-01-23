@@ -6,17 +6,17 @@
         Schreibe in das untere Feld und lasse es von einem der Deep-Learning-Modelle analysieren.
     </div>
     <div>
-        <canvas appCanvasDraw [clear_canvas]="clear_canvas" (clear_history)="clearCanvas()" (newStrokeEvent)="newStroke($event)" id="canvas"
-            style="border:solid black 1px;">
+        <canvas appCanvasDraw [clear_canvas]="clear_canvas" (clear_history)="clearCanvas()"
+            (newStrokeEvent)="newStroke($event)" id="canvas" style="border:solid black 1px;">
             Your browser does not support canvas element.
         </canvas>
-    </div>
-    <div class="share-container">
-        <app-share-button></app-share-button>
     </div>
     <div class="buttons">
         <button (click)="submit()">Analysieren</button>
         <button (click)="clearCanvas()">Eingabe löschen</button>
+    </div>
+    <div class="share-container">
+        <app-share-button></app-share-button>
     </div>
     <div class="container">
         <div class="results" *ngIf="result.length!=0">
@@ -33,5 +33,8 @@
                 <a [routerLink]="['/more/draw', model[0]]">{{model[1]}}</a>
             </div>
         </div>
+    </div>
+    <div class="home-container">
+        <a routerLink="/">Startseite</a>
     </div>
 </div>

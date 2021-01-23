@@ -40,7 +40,6 @@ canvas{
     justify-content: space-around;
     flex-wrap: wrap;
     flex-direction: row;
-    margin-top: 25px;
 }
 
 .share-container {
@@ -51,4 +50,10 @@ canvas{
 
 .share-container app-share-button{
     margin: auto;
+}
+
+.home-container{
+    margin: auto;
+    width: 80px;
+    padding-top: 30px;
 }
