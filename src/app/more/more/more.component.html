@@ -5,12 +5,12 @@
             Dokumentation des Projekts
         </div>
     </a>
-    <a class="link-container" [href]="interview_url">
+    <div class="link-container" (click)="toggleVideoByClick()" [appVideoPopup]="video">
         <img src="assets/interview.jpg">
         <div class="text">
             Video Interview mit Martin Villavicencio
         </div>
-    </a>
+    </div>
     <a class="link-container" routerLink="/more/draw">
         <img src="assets/draw.png">
         <div class="text">
@@ -21,3 +21,7 @@
         <app-share-button></app-share-button>
     </div>
 </div>
+
+<ng-template #video>
+    <video [src]="interview_url" controls></video>
+</ng-template>
