@@ -23,7 +23,7 @@
 
         <div class="link-container text">
             <div *ngIf="!isNaN(continue_id); else startSurvey">
-                <a [routerLink]="[base_url, continue_id]">Weiter</a>
+                <a [routerLink]="[base_url, continue_id]">Umfrage</a>
             </div>
 
             <ng-template #startSurvey>
